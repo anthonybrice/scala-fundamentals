@@ -26,13 +26,13 @@ Understand the Fundamentals
 ===
 Make sure you understand some fundamentals of Scala
 
-* tuples and extractors (core/src/test/scala/com/cj/scala/fundamentals/TuplesAndExtractorsSuite.scala)
-* options (core/src/test/scala/com/cj/scala/fundamentals/OptionSuite.scala)
-* case classes (core/src/test/scala/com/cj/scala/fundamentals/CaseClassSuite.scala)
-* immutable collections (core/src/test/scala/com/cj/scala/fundamentals/CollectionSuite.scala)
-* map, flatMap, for/yield (core/src/test/scala/com/cj/scala/fundamentals/MapFlatMapForYield.scala)
-* regular expressions (core/src/test/scala/com/cj/scala/fundamentals/RegexExtractorSuite.scala)
-* composing immutable collections (core/src/test/scala/com/cj/scala/fundamentals/TypesOfLoops.scala)
+* [tuples and extractors](src/test/scala/com/cj/scala/fundamentals/TuplesAndExtractorsSuite.scala)
+* [options](src/test/scala/com/cj/scala/fundamentals/OptionSuite.scala)
+* [case classes](src/test/scala/com/cj/scala/fundamentals/CaseClassSuite.scala)
+* [immutable collections](src/test/scala/com/cj/scala/fundamentals/CollectionSuite.scala)
+* [map, flatMap, for/yield](src/test/scala/com/cj/scala/fundamentals/MapFlatMapForYield.scala)
+* [regular expressions](src/test/scala/com/cj/scala/fundamentals/RegexExtractorSuite.scala)
+* [composing immutable collections](src/test/scala/com/cj/scala/fundamentals/TypesOfLoops.scala)
 
 No mutable case classes
 ===
