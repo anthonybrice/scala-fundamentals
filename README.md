@@ -1,18 +1,9 @@
-CJ Scala Style Guidelines
+Getting started with Scala
 ===
 
-Objective
+Catch up with our standards
 ===
-* Ensure our Scala code is written with an understanding of the capabilities unique to Scala
-* Document objectively better ways of coding in Scala (such as the line breaking example)
-* Document subjectively better ways of coding in Scala where there is consensus and we are not over-regulating (such as the option instead of null example)
-
-How to use
-===
-* Think about what you are doing.
-* Refer to the CJ Scala Style Guidelines to make sure you understand them first, and follow them if they are suitable.
-* If they are not suitable, be prepared to explain your reasoning on discourse so we can have discussion and possibly update the style guidelines to make note of the exception.
-* Every style guideline should have a good reason.  Appeals to authority, consistency, or how it is done in the wild are not sufficient reasons.  Ask "why" until the reason conveys understanding rather than rote.  Why do the authorities say it should be done this way?  Why is it done this way in the wild?  Why have we chosen to consistently do it this way?
+[scala standards](http://gitlab.cj.com/cjdev/standards/blob/master/scala-standards.md)
 
 Value Simplicity
 ===
