@@ -71,7 +71,9 @@ This is necessary because the first situation confuses semicolon inference, as b
 
 Favor Referential transparency
 ===
-Favor referential transparency when it makes sense.  This makes it easier to unit-test and compose your functions.  Here are some alternatives to consider:
+Favor referential transparency when it makes sense.
+This makes it easier to unit-test and compose your functions.
+Here are some indicators that you do not have referential transparency, along with alternatives.
 
 * var                          (use val or lazy val instead)
 * for without a yield          (this means there is a side effect in the for, return a new list instead)
@@ -82,14 +84,15 @@ Favor referential transparency when it makes sense.  This makes it easier to uni
 * mutable object               (create an immutable object and methods to transform into the same type of immutable object)
 * defensive copy of collection (don't need this if you are using a immutable collections)
 
-It is worth noting that it is possible to implement a referentially transparent function using mutable and imperative style, so long as all the mutability is hidden behind the function.
+It is worth noting that it is possible to implement a function that is referentially transparent from the outside, that uses mutable and imperative style on the inside.
+This can be done by being careful not to expose any mutability from the parameter list or return value.
 
 Design for testability
 ===
 Try to separate your logic from your interactions with the environment, by hiding these types of things behind a contract (in Scala, a trait with no implementations)
 For your classes with logic, this makes it easy to unit test, while limiting the scope of fakes you create to simulate the environment.
 For your classes that integrate with the environment, since there is no logic, it limits the number of integration tests you need.
-Here are some examples of things you might want to hide behind a trait:
+Here are some examples of things you might want to hide behind a contract:
 
 * random
 * system clock
