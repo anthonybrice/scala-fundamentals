@@ -39,7 +39,7 @@ Favor Option over null
 * Having a well defined mechanic for dealing with nulls allows the code to be simpler because you know where you do and do not need null checking.  The Option type allows you to enforce this safety at compile time.
 * Some Java libraries require you to use null, so when moving from Java to Scala you can use Option.apply(possiblyNullValue) to convert an option to a null.  In the other direction, you can use the option.orNull method.
 * If the value is null *only* during initialization, but *never* once the application is ready, then an Option is unnecessary overhead.  In this case, it is ok to use null instead, as the after-initialization code can sensibly expect the value not to be null.
-* Avoid option.get, as you are incurring the same lack of safety you get with nulls.  Instead, use option.map or pattern matching.
+* Avoid option.get, as you are incurring the same lack of safety you get with nulls.  Instead, use option.map or pattern matching.  It is only safe to use option.get if you know the option is not None, but if you know that, why are you using an option in the first place?
 
 Scala List is not Java List
 ===
@@ -122,7 +122,7 @@ Understand your evaluation options
 * def
     * computed every time it is accessed
 * by value parameters (theParameter: String)
-    * computed exactly once, as the function is called
+    * computed exactly once, just before the function is invoked
 * by name parameters (theParameter: => String)
     * computed only when referenced, and re-computed every time it is referenced
 
