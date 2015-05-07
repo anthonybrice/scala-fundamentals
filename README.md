@@ -149,4 +149,10 @@ When interacting with Java code, understand how to switch between Scala and Java
 
 Cake Pattern
 ===
-Do not introduce the Scala "cake" pattern.  It has been abandoned here at CJ in favor of constructor injection (and setter injection when constructor injection is not an option).  While the Scala "cake" pattern has some very neat features, it has been found to cause difficulty with testing, especially across maven modules.  Talk to Sean or Eugene for details.  Further exclamation can be added here if necessary.
+Do not introduce the Scala "cake" pattern.
+It has been abandoned here at CJ in favor of constructor injection (and setter injection when constructor injection is not an option).
+While the Scala "cake" pattern has some very neat features, it has been found to cause difficulty with testing.
+One problem is that to use something inside the cake pattern, you have to pull in every layer of the cake, even if those layers are not in scope of your test.
+This leads to creating more complicated test objects, and finally another problem when you try to use one of these objects from a different module, as maven does not allow dependencies between modules within the context of the "test" scope.
+Also, the cake pattern difficult to combine with plain code, as it tends to force you to place all dependencies within the cake pattern once you start using it.
+This forces you to make even the simplest components aware of the cake pattern, which is complexity you would not have to pay for if you were using constructor or setter injection.
