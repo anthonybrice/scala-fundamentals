@@ -24,6 +24,7 @@ Make sure you understand some fundamentals of Scala
 * [map, flatMap, for/yield](src/test/scala/com/cj/scala/fundamentals/MapFlatMapForYield.scala)
 * [regular expressions](src/test/scala/com/cj/scala/fundamentals/RegexExtractorSuite.scala)
 * [composing immutable collections](src/test/scala/com/cj/scala/fundamentals/TypesOfLoopsSuite.scala)
+* [futures](src/test/scala/com/cj/scala/fundamentals/FutureSuite.scala)
 
 No mutable case classes
 ===
