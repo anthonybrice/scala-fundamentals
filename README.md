@@ -38,11 +38,11 @@ Case classes should be leaf nodes in the inheritance hierarchy.
 
 Favor Option over null
 ===
-* If you need a null in an argument list or return value, use the Option type instead.  Treat null pointer exceptions in Scala as the caller's fault for sending a null, not the functions fault for not checking for null.  Sometimes you will have to deal with nulls, just don't pass them along in a parameter list.
+* If you need a null in an argument list or return value, use the Option type instead.  Treat null pointer exceptions in Scala as the caller's fault for sending a null, not the functions fault for not checking for null.  Sometimes you will have to deal with nulls, just don't pass them along in a parameter list or return them from a function call.
 * Having a well defined mechanic for dealing with nulls allows the code to be simpler because you know where you do and do not need null checking.  The Option type allows you to enforce this safety at compile time.
 * Some Java libraries require you to use null, so when moving from Java to Scala you can use Option.apply(possiblyNullValue) to convert an option to a null.  In the other direction, you can use the option.orNull method.
 * If the value is null *only* during initialization, but *never* once the application is ready, then an Option is unnecessary overhead.  In this case, it is ok to use null instead, as the after-initialization code can sensibly expect the value not to be null.
-* Avoid option.get, as you are incurring the same lack of safety you get with nulls.  Instead, use option.map or pattern matching.  It is only safe to use option.get if you know the option is not None, but if you know that, why are you using an option in the first place?
+* Avoid option.get, as you are incurring the same lack of safety you get with nulls.  Instead, use option.map or pattern matching.  It is only safe to use option.get if you know the option is not None.  In most cases, if you know the option is not None, you should not be using an option in the first place.
 
 Scala List is not Java List
 ===
@@ -140,6 +140,7 @@ Understand your collection options
         * Stream     - a lazy sequence, computes all elements up to and including the one you ask for only when you ask for it, and does not recompute already computed values when you ask for more values
     * Set            - unique values
     * Map            - key value pairs, can also be thought of as an unordered Seq of tuple2's with unique keys
+        * ListMap    - preserves insertion order at the cost of access being linear time rather than constant time
 
 JavaConversions
 ===
@@ -156,6 +157,6 @@ Do not introduce the Scala "cake" pattern.
 It has been abandoned here at CJ in favor of constructor injection (and setter injection when constructor injection is not an option).
 While the Scala "cake" pattern has some very neat features, it has been found to cause difficulty with testing.
 One problem is that to use something inside the cake pattern, you have to pull in every layer of the cake, even if those layers are not in scope of your test.
-This leads to creating more complicated test objects, and finally another problem when you try to use one of these objects from a different module, as maven does not allow dependencies between modules within the context of the "test" scope.
+This leads to creating more complicated test objects, and finally another problem when you try to use one of these objects from a different maven module, as maven does not allow dependencies between modules within the context of the "test" scope.
 Also, the cake pattern difficult to combine with plain code, as it tends to force you to place all dependencies within the cake pattern once you start using it.
 This forces you to make even the simplest components aware of the cake pattern, which is complexity you would not have to pay for if you were using constructor or setter injection.
