@@ -47,6 +47,10 @@ object Shape {
   //when we have no reason to expect that an error will happen,
   //but cannot rely on unexpected exceptions to propagate automatically,
   //so we have to keep track of them somehow
+  //this is an example, not a recommendation
+  //rather than exposing the Try here,
+  //the code that is preventing the exception propagation (for example, by spawning a thread),
+  //should handle the Try
   def tryFromString(name: String): Try[Shape] = {
     Try.apply {
       values.find(shape => shape.nameMatches(name)).head
