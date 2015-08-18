@@ -23,17 +23,18 @@ object Shape {
   val Circle = new Shape("Circle") {}
   val Square = new Shape("Square") {}
 
-  //when it makes sense to assume an error will not happen
+  //when it does not make sense to expect that an error will happen
+  //so any error that does happen should be propagated to a generic, high level exception handler
   def fromString(name: String): Shape = {
     values.find(_.nameMatches(name)).head
   }
 
-  //when the ways an error can happen are known, and no further information about the error is needed
+  //when there are expected ways an error can happen that we don't need further information about
   def maybeFromString(name: String): Option[Shape] = {
     values.find(_.nameMatches(name))
   }
 
-  //when the ways an error can happen are known, and further information about the error is needed
+  //when there are expected ways an error can happen that we need further information about
   def eitherFromString(name: String): Either[String, Shape] = {
     values.find(_.nameMatches(name)) match {
       case Some(shape) => Right(shape)
@@ -43,7 +44,9 @@ object Shape {
     }
   }
 
-  //when the ways an error can happen are not known, but need to be handled by the caller
+  //when we have no reason to expect that an error will happen,
+  //but cannot rely on unexpected exceptions to propagate automatically,
+  //so we have to keep track of them somehow
   def tryFromString(name: String): Try[Shape] = {
     Try.apply {
       values.find(shape => shape.nameMatches(name)).head
