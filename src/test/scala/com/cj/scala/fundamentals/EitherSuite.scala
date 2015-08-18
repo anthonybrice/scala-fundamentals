@@ -42,10 +42,10 @@ class EitherSuite extends FunSuite {
     //if there are validation errors, we should get the list of validation messages
     assert(
       PartValidator.validate(Map("name" -> "bit and a bob", "shape" -> "trapezoid", "quality" -> "wat")) ===
-        Left(Seq(
-          "name must not contain whitespace, was 'bit and a bob'",
-          "shape was 'trapezoid', expected one of Triangle, Circle, Square",
-          "quality must be a number, was 'wat'")))
+        Left(Map(
+          "name" -> "must not contain whitespace, was 'bit and a bob'",
+          "shape" -> "was 'trapezoid', expected one of Triangle, Circle, Square",
+          "quality" -> "must be a number, was 'wat'")))
   }
 
   object ValidationRules {
@@ -122,16 +122,16 @@ class EitherSuite extends FunSuite {
   case class Part(name: String, shape: Shape, quality: Long)
 
   case class PartValidator(inputs: Map[String, String],
-                           messages: List[String],
+                           messages: Map[String, String],
                            maybeName: Option[String],
                            maybeShape: Option[Shape],
                            maybeQuality: Option[Long]) {
     //compose the final validation result
-    def toValidated: Either[Seq[String], Part] = {
+    def toValidated: Either[Map[String, String], Part] = {
       val validated = PartValidator.validatePart(this)
       val result =
         if (validated.isValid) Right(Part(validated.maybeName.get, validated.maybeShape.get, validated.maybeQuality.get))
-        else Left(validated.messages.reverse)
+        else Left(validated.messages)
       result
     }
 
@@ -142,10 +142,10 @@ class EitherSuite extends FunSuite {
 
     import ValidationRules._
 
-    def validate(map: Map[String, String]): Either[Seq[String], Part] =
-      PartValidator(map, Nil, None, None, None).toValidated
+    def validate(map: Map[String, String]): Either[Map[String, String], Part] =
+      PartValidator(map, Map(), None, None, None).toValidated
 
-    def fromMap(map: Map[String, String]) = PartValidator(map, Nil, None, None, None)
+    def fromMap(map: Map[String, String]) = PartValidator(map, Map(), None, None, None)
 
     //transform using the current validation rule
     def applyPartRule(soFar: PartValidator, rule: PartValidator => PartValidator): PartValidator = {
@@ -156,21 +156,21 @@ class EitherSuite extends FunSuite {
     //not using Either here, because we need to collect all the messages, so can't stop on hitting a "left"
     def validatePartName(partValidator: PartValidator): PartValidator = {
       validateName(partValidator.inputs.get("name").orNull) match {
-        case Left(message) => partValidator.copy(messages = s"name $message" :: partValidator.messages)
+        case Left(message) => partValidator.copy(messages = partValidator.messages + ("name" -> message))
         case Right(validName) => partValidator.copy(maybeName = Some(validName))
       }
     }
 
     def validatePartShape(partValidator: PartValidator): PartValidator = {
       Shape.eitherFromString(partValidator.inputs.get("shape").orNull) match {
-        case Left(message) => partValidator.copy(messages = s"shape $message" :: partValidator.messages)
+        case Left(message) => partValidator.copy(messages = partValidator.messages + ("shape" -> message))
         case Right(validShape) => partValidator.copy(maybeShape = Some(validShape))
       }
     }
 
     def validatePartQuality(partValidator: PartValidator): PartValidator = {
       validateQuality(partValidator.inputs.get("quality").orNull) match {
-        case Left(message) => partValidator.copy(messages = s"quality $message" :: partValidator.messages)
+        case Left(message) => partValidator.copy(messages = partValidator.messages + ("quality" -> message))
         case Right(validId) => partValidator.copy(maybeQuality = Some(validId))
       }
     }
