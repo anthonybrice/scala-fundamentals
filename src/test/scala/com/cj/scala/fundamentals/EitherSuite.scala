@@ -37,11 +37,11 @@ class EitherSuite extends FunSuite {
   test("accumulate validation errors") {
     //when everything is valid, we should get the statically typed value
     assert(
-      PartFactory.fromStringValues(Map("name" -> "bit", "shape" -> "triangle", "quality" -> "79")) ===
+      Part.fromStringValues(Map("name" -> "bit", "shape" -> "triangle", "quality" -> "79")) ===
         Right(Part("bit", Shape.Triangle, 79)))
     //if there are validation errors, we should get the list of validation messages
     assert(
-      PartFactory.fromStringValues(Map("name" -> "bit and a bob", "shape" -> "trapezoid", "quality" -> "wat")) ===
+      Part.fromStringValues(Map("name" -> "bit and a bob", "shape" -> "trapezoid", "quality" -> "wat")) ===
         Left(Map(
           "name" -> "must not contain whitespace, was 'bit and a bob'",
           "shape" -> "was 'trapezoid', expected one of Triangle, Circle, Square",
@@ -121,7 +121,7 @@ class EitherSuite extends FunSuite {
 
   case class Part(name: String, shape: Shape, quality: Long)
 
-  object PartFactory {
+  object Part {
 
     import ValidationRules._
 
