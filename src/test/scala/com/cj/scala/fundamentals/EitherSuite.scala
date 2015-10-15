@@ -48,7 +48,7 @@ class EitherSuite extends FunSuite {
           "quality" -> "must be a number, was 'wat'")))
   }
 
-  test("curried") {
+  test("curried constructor") {
     val a = (Part.apply _).curried
     val b = a("bit")
     val c = b(Shape.Triangle)
@@ -190,8 +190,8 @@ class EitherSuite extends FunSuite {
       val errorOrName = applyRule("name", toValidName)
       val errorOrShape = applyRule("shape", Shape.eitherFromString)
       val errorOrQuality = applyRule("quality", toValidQuantity)
-      val curriedFunction = (Part.apply _).curried
-      val a = applyFirst(curriedFunction, errorOrName)
+      val curriedPartConstructor = (Part.apply _).curried
+      val a = applyFirst(curriedPartConstructor, errorOrName)
       val b = applyNext(a, errorOrShape)
       val c = applyNext(b, errorOrQuality)
       c
