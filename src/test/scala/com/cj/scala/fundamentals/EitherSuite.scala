@@ -48,6 +48,60 @@ class EitherSuite extends FunSuite {
           "quality" -> "must be a number, was 'wat'")))
   }
 
+  test("curried") {
+    val a = (Part.apply _).curried
+    val b = a("bit")
+    val c = b(Shape.Triangle)
+    val d = c(79)
+    assert(d === Part("bit", Shape.Triangle, 79))
+  }
+
+  test("compose valid from curried") {
+    val validName: Either[(String, String), String] = Right("bit")
+    val validShape: Either[(String, String), Shape] = Right(Shape.Triangle)
+    val validQuality: Either[(String, String), Long] = Right(79)
+
+    val curriedFunction: (String) => (Shape) => (Long) => Part = (Part.apply _).curried
+    val a = applyFirst(curriedFunction, validName)
+    val b = applyNext(a, validShape)
+    val c = applyNext(b, validQuality)
+    assert(c === Right(Part("bit", Shape.Triangle, 79)))
+  }
+
+  test("compose invalid from curried") {
+    val validName: Either[(String, String), String] = Left("name" -> "must not contain whitespace, was 'bit and a bob'")
+    val validShape: Either[(String, String), Shape] = Left("shape" -> "was 'trapezoid', expected one of Triangle, Circle, Square")
+    val validQuality: Either[(String, String), Long] = Left("quality" -> "must be a number, was 'wat'")
+
+    val curriedFunction: (String) => (Shape) => (Long) => Part = (Part.apply _).curried
+    val a = applyFirst(curriedFunction, validName)
+    val b = applyNext(a, validShape)
+    val c = applyNext(b, validQuality)
+    assert(c === Left(Map(
+      "name" -> "must not contain whitespace, was 'bit and a bob'",
+      "shape" -> "was 'trapezoid', expected one of Triangle, Circle, Square",
+      "quality" -> "must be a number, was 'wat'")))
+  }
+
+  def applyFirst[T, R](f: T => R,
+                       a: Either[(String, String), T]): Either[Map[String, String], R] = {
+    val result: Either[Map[String, String], R] = a match {
+      case Left(newError) => Left(Map() + newError)
+      case Right(newValue) => Right(f(newValue))
+    }
+    result
+  }
+
+  def applyNext[T, R](soFar: Either[Map[String, String], T => R],
+                      a: Either[(String, String), T]): Either[Map[String, String], R] = {
+    val result: Either[Map[String, String], R] = (soFar, a) match {
+      case (Left(existingErrors), Left(newError)) => Left(existingErrors + newError)
+      case (Left(existingErrors), Right(_)) => Left(existingErrors)
+      case (Right(f), _) => applyFirst(f, a)
+    }
+    result
+  }
+
   object ValidationRules {
     def disallowNull(input: String): Either[String, String] = {
       if (input == null) Left("must not be null")
@@ -92,7 +146,7 @@ class EitherSuite extends FunSuite {
     def requireAtMost100 = requireAtMost(100)
 
     //compose a bunch of rules in order, stop on the first failure
-    def toValidQuantity(input: String): Either[String, Int] = {
+    def toValidQuantity(input: String): Either[String, Long] = {
       //if we only need to record the first failure, we can compose along the "right" projection
       //unlike options, it is not obvious if we want to follow the left path or right path
       //so we have to specify it in the for comprehension
@@ -126,22 +180,21 @@ class EitherSuite extends FunSuite {
     import ValidationRules._
 
     def fromStringValues(map: Map[String, String]) = {
-      val errorOrName = toValidName(map("name"))
-      val errorOrShape = Shape.eitherFromString(map("shape"))
-      val errorOrQuality = toValidQuantity(map("quality"))
-      (errorOrName, errorOrShape, errorOrQuality) match {
-        case (Right(name), Right(shape), Right(quality)) => Right(Part(name, shape, quality))
-        case _ =>
-          val resultsMap = Map("name" -> errorOrName, "shape" -> errorOrShape, "quality" -> errorOrQuality)
-          val errors: Map[String, String] = for {
-            (name, errorOrValue) <- resultsMap
-            if errorOrValue.isLeft
-            error = errorOrValue.left.get
-          } yield {
-              (name, error)
-            }
-          Left(errors)
+      def applyRule[T](name: String, rule: String => Either[String, T]): Either[(String, String), T] = {
+        for {
+          a <- rule(map(name)).left
+        } yield {
+          (name, a)
+        }
       }
+      val errorOrName = applyRule("name", toValidName)
+      val errorOrShape = applyRule("shape", Shape.eitherFromString)
+      val errorOrQuality = applyRule("quality", toValidQuantity)
+      val curriedFunction = (Part.apply _).curried
+      val a = applyFirst(curriedFunction, errorOrName)
+      val b = applyNext(a, errorOrShape)
+      val c = applyNext(b, errorOrQuality)
+      c
     }
   }
 
