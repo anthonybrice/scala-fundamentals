@@ -49,10 +49,10 @@ class EitherSuite extends FunSuite {
   }
 
   test("curried constructor") {
-    val a = (Part.apply _).curried
-    val b = a("bit")
-    val c = b(Shape.Triangle)
-    val d = c(79)
+    val a: (String) => (Shape) => (Long) => Part = (Part.apply _).curried
+    val b: (Shape) => (Long) => Part = a("bit")
+    val c: (Long) => Part = b(Shape.Triangle)
+    val d: Part = c(79)
     assert(d === Part("bit", Shape.Triangle, 79))
   }
 
@@ -81,6 +81,23 @@ class EitherSuite extends FunSuite {
       "name" -> "must not contain whitespace, was 'bit and a bob'",
       "shape" -> "was 'trapezoid', expected one of Triangle, Circle, Square",
       "quality" -> "must be a number, was 'wat'")))
+  }
+
+  test("run in for comprehension") {
+    class Blah[A](val content: A) {
+      def map[B](f: A => B): Blah[B] = new Blah(f(content))
+
+      def flatMap[B](f: A => Blah[B]): Blah[B] = f(content)
+
+      override def toString: String = content.toString
+    }
+    val foo = new Blah("double")
+    val bar = new Blah(2)
+    val results = for {
+      a <- foo
+      b <- bar
+    } yield a * b
+    assert(results.content === "doubledouble")
   }
 
   def applyFirst[T, R](f: T => R,
