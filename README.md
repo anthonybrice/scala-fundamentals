@@ -7,8 +7,8 @@ Catch up with our standards
 
 Look at some example projects with full test coverage to see how wiring works
 =============================================================================
-[push allowed wiring](http://gitlab.cj.com/thekman/push-allowed/blob/master/console/src/main/scala/com/cj/pushallowed/console/TopLevelWiring.scala)
-[latest deployable wiring](http://gitlab.cj.com/zyu/pull-allowed/blob/master/server/src/main/scala/com/cj/latestdeployable/server/TopLevelWiring.scala)
+* [push allowed wiring](http://gitlab.cj.com/thekman/push-allowed/blob/master/console/src/main/scala/com/cj/pushallowed/console/TopLevelWiring.scala)
+* [latest deployable wiring](http://gitlab.cj.com/zyu/pull-allowed/blob/master/server/src/main/scala/com/cj/latestdeployable/server/TopLevelWiring.scala)
 
 
 Value Simplicity
