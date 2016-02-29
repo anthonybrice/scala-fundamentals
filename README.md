@@ -7,8 +7,24 @@ Catch up with our standards
 
 Look at some example projects with full test coverage to see how wiring works
 =============================================================================
-* [push allowed wiring](http://gitlab.cj.com/thekman/push-allowed/blob/master/console/src/main/scala/com/cj/pushallowed/console/TopLevelWiring.scala)
-* [latest deployable wiring](http://gitlab.cj.com/zyu/pull-allowed/blob/master/server/src/main/scala/com/cj/latestdeployable/server/TopLevelWiring.scala)
+* key features
+    * one entry point, which allowed us to find dead code with detangler
+    * full test coverage, everything that can be tested, is tested
+    * tests are giving us earliest possible feedback
+        * instant, if you are looking at the file, by static typing and fully qualifying types in wiring
+        * compile time, by static typing and fully qualifying types in wiring
+        * unit test, by design by contract and dependency inversion
+        * integration test, only the minimal needed to ensure the integration point works, no conditional logic
+            * [sample integration test](http://gitlab.cj.com/zyu/pull-allowed/blob/master/core/src/test/scala/com/cj/latestdeployable/core/GetViaHttpTest.scala)
+            * [fixture for integration test](http://gitlab.cj.com/zyu/pull-allowed/blob/master/core/src/test/scala/com/cj/latestdeployable/core/HttpServerApp.scala)
+        * end-to-end test, not needed, as the entry point code never needs to change
+* example projects
+    * push allowed
+        * [entry point](http://gitlab.cj.com/thekman/push-allowed/blob/master/console/src/main/scala/com/cj/pushallowed/console/ConsoleApplication.scala)
+        * [wiring](http://gitlab.cj.com/thekman/push-allowed/blob/master/console/src/main/scala/com/cj/pushallowed/console/ConsoleWiring.scala)
+    * latest deployable
+        * [entry point](http://gitlab.cj.com/zyu/pull-allowed/blob/master/server/src/main/scala/com/cj/latestdeployable/server/ServerApplication.scala)
+        * [wiring](http://gitlab.cj.com/zyu/pull-allowed/blob/master/server/src/main/scala/com/cj/latestdeployable/server/ServerWiring.scala)
 
 
 Value Simplicity
