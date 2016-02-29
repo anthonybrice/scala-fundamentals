@@ -17,6 +17,7 @@ Look at some example projects with full test coverage to see how wiring works
         * integration test, only the minimal needed to ensure the integration point works, no conditional logic
             * [sample integration test](http://gitlab.cj.com/zyu/pull-allowed/blob/master/core/src/test/scala/com/cj/latestdeployable/core/GetViaHttpTest.scala)
             * [fixture for integration test](http://gitlab.cj.com/zyu/pull-allowed/blob/master/core/src/test/scala/com/cj/latestdeployable/core/HttpServerApp.scala)
+            * [hello handler](http://gitlab.cj.com/zyu/pull-allowed/blob/master/core/src/test/scala/com/cj/latestdeployable/core/HelloHandler.scala)
         * end-to-end test, not needed, as the entry point code never needs to change
 * example projects
     * push allowed
