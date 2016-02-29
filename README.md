@@ -5,8 +5,8 @@ Catch up with our standards
 ===
 [scala standards](http://gitlab.cj.com/cjdev/standards/blob/master/scala-standards.md)
 
-Look at some example projects with full test coverage to see how wiring works
-=============================================================================
+Look at examples with full test coverage to see how wiring works
+=========================================================================
 * key features
     * one [entry point](http://gitlab.cj.com/zyu/pull-allowed/blob/master/server/src/main/scala/com/cj/latestdeployable/server/ServerApplication.scala), which allowed us to find dead code with detangler
     * full test coverage, everything that can be tested, is tested
