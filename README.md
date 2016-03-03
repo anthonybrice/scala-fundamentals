@@ -19,6 +19,14 @@ Look at example with full test coverage to see how wiring works
             * [fixture for integration test](http://gitlab.cj.com/zyu/pull-allowed/blob/master/core/src/test/scala/com/cj/latestdeployable/core/HttpServerApp.scala)
             * [hello handler](http://gitlab.cj.com/zyu/pull-allowed/blob/master/core/src/test/scala/com/cj/latestdeployable/core/HelloHandler.scala)
         * end-to-end test, not needed, as the [entry point](http://gitlab.cj.com/zyu/pull-allowed/blob/master/server/src/main/scala/com/cj/latestdeployable/server/ServerApplication.scala) code never needs to change
+    * some features of the wiring itself
+        * statically typed
+        * happens at compile time
+        * instant feedback from integrated development environment
+        * no annotations
+        * no proxies clogging up stack trace
+        * can set breakpoints
+        * no re-wiring upon each launch of a test
 
 Value Simplicity
 ===
