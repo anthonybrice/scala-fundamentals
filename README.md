@@ -5,11 +5,22 @@ Catch up with our standards
 ===
 [scala standards](http://gitlab.cj.com/cjdev/standards/blob/master/scala-standards.md)
 
-Look at example with full test coverage to see how wiring works
-===============================================================
+Look at this example with full test coverage to see how wiring works
+====================================================================
+* what belongs in wiring
+    * constructor injection
+    * new'ing instances of objects
+    * constant values
+    * function references
+    * partial function application
+    * explicit typing
+* what should not be allowed in wiring
+    * type inference 
+    * conditional logic
+    * nulls
 * key features
     * one [entry point](http://gitlab.cj.com/zyu/pull-allowed/blob/master/server/src/main/scala/com/cj/latestdeployable/server/ServerApplication.scala), which allowed us to find dead code with detangler
-    * full test coverage, everything that can be tested, is tested
+    * full test coverage of logic and integration points
     * tests are giving us earliest possible feedback
         * instant, if you are looking at the file, by static typing and fully qualifying types in [wiring](http://gitlab.cj.com/zyu/pull-allowed/blob/master/server/src/main/scala/com/cj/latestdeployable/server/ServerWiring.scala)
         * compile time, by static typing and fully qualifying types in [wiring](http://gitlab.cj.com/zyu/pull-allowed/blob/master/server/src/main/scala/com/cj/latestdeployable/server/ServerWiring.scala)
@@ -18,7 +29,6 @@ Look at example with full test coverage to see how wiring works
             * [sample integration test](http://gitlab.cj.com/zyu/pull-allowed/blob/master/core/src/test/scala/com/cj/latestdeployable/core/GetViaHttpTest.scala)
             * [fixture for integration test](http://gitlab.cj.com/zyu/pull-allowed/blob/master/core/src/test/scala/com/cj/latestdeployable/core/HttpServerApp.scala)
             * [hello handler](http://gitlab.cj.com/zyu/pull-allowed/blob/master/core/src/test/scala/com/cj/latestdeployable/core/HelloHandler.scala)
-        * end-to-end test, not needed, as the [entry point](http://gitlab.cj.com/zyu/pull-allowed/blob/master/server/src/main/scala/com/cj/latestdeployable/server/ServerApplication.scala) code never needs to change
     * some features of the wiring itself
         * statically typed
         * happens at compile time
