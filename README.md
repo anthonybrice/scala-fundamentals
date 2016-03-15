@@ -18,6 +18,10 @@ Look at this example with full test coverage to see how wiring works
     * type inference 
     * conditional logic
     * nulls
+* important
+    * no logic is allowed above the wiring
+    * the one entry point does nothing but delegate to the wiring
+    * this ensures that all of your logic is easy to unit test
 * key features
     * one [entry point](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/server/src/main/scala/com/cj/latestdeployable/server/ServerApplication.scala), which allowed us to find dead code with detangler
     * full test coverage of logic and integration points
