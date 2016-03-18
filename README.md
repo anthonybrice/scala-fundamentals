@@ -18,10 +18,15 @@ Look at this example with full test coverage to see how wiring works
     * type inference 
     * conditional logic
     * nulls
-* important
-    * no logic is allowed above the wiring
-    * the one entry point does nothing but delegate to the wiring
-    * this ensures that all of your logic is easy to unit test
+* designing classes for use with wiring
+    * one entry point
+        * no logic is allowed above the wiring
+        * the one entry point does nothing but delegate to the wiring
+        * this ensures that all of your logic is easy to unit test
+    * constructors should not do much
+        * one class should not depend on constructor code from another class in the same wiring
+        * this creates a temporal coupling that is not obvious
+        * in general, constructors should do nothing but initialize references to their collaborators
 * key features
     * one [entry point](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/server/src/main/scala/com/cj/latestdeployable/server/ServerApplication.scala), which allowed us to find dead code with detangler
     * full test coverage of logic and integration points
