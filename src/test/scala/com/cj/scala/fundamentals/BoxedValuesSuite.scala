@@ -34,6 +34,10 @@ class BoxedValuesSuite extends FunSuite {
     assert(reversedUsingArray === Seq(3, 2, 1))
   }
 
+  //It is important to understand all of the java conversions before choosing one
+  //In particular, you need to know which once return the original object when converting back and forth
+  //Read the documentation here
+  //http://www.scala-lang.org/api/current/#scala.collection.JavaConversions$
   test("java collections") {
     val values: Seq[Long] = Seq(1, 2, 3)
 
