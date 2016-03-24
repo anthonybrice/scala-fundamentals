@@ -35,41 +35,43 @@ class OptionSuite extends FunSuite {
     assert(searchResult("Bob") === "didn't find user Bob")
   }
 
-  test("we can `lift` ordinary functions to process Option!"){
+  test("we can `lift` ordinary functions to process Option!") {
 
-    def legacyJavaFunction(id : String, age : Int, weight : Double ) : String = {
+    def legacyJavaFunction(id: String, age: Int, weight: Double): String = {
       s"Java Call Succeeded! id $id"
     }
 
-    val maybeAge  = Try("1".toInt).toOption
-    val maybeWeight  = Try("157.4".toDouble).toOption
+    val maybeAge = Try("1".toInt).toOption
+    val maybeWeight = Try("157.4".toDouble).toOption
 
-    val optionsHelpExpressPipelines  : (String) => Option[String] =
-        n =>  maybeAge.flatMap(
-          a => maybeWeight.flatMap(
-            w => Option(legacyJavaFunction(n,a,w))))
+    val optionsHelpExpressPipelines: (String) => Option[String] =
+      n => maybeAge.flatMap(
+        a => maybeWeight.flatMap(
+          w => Option(legacyJavaFunction(n, a, w))))
 
     val optionsCanParticipateInForExpressionsToo =
-      for { name <- Option("Fred")
-            age <- maybeAge
-            weight <- maybeWeight}
-        yield {legacyJavaFunction(name, age, weight)}
+      for {name <- Option("Fred")
+           age <- maybeAge
+           weight <- maybeWeight}
+        yield {
+          legacyJavaFunction(name, age, weight)
+        }
 
     assert(optionsHelpExpressPipelines("Fred") ==
-              optionsCanParticipateInForExpressionsToo)
+      optionsCanParticipateInForExpressionsToo)
 
     val optionsCarryValuesThroughPipelines =
-        Try("123".toInt).toOption.flatMap( (i: Int) =>  optionsHelpExpressPipelines(i.toString))
+      Try("123".toInt).toOption.flatMap((i: Int) => optionsHelpExpressPipelines(i.toString))
 
-    assert( optionsCarryValuesThroughPipelines ===
+    assert(optionsCarryValuesThroughPipelines ===
       Some("Java Call Succeeded! id 123")) // yay!
 
 
     val optionsCanIndicateFailureAndShortCircuitPipelinesToo =
-      Try("Oh Noez!".toInt).toOption.flatMap( (i: Int) =>  optionsHelpExpressPipelines(i.toString))
+      Try("Oh Noez!".toInt).toOption.flatMap((i: Int) => optionsHelpExpressPipelines(i.toString))
 
-    assert( optionsCanIndicateFailureAndShortCircuitPipelinesToo ===
-          None )// boo!
+    assert(optionsCanIndicateFailureAndShortCircuitPipelinesToo ===
+      None) // boo!
 
   }
 

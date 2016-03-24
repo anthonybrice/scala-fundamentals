@@ -115,9 +115,9 @@ class MapFlatMapForYieldSuite extends FunSuite {
       if product != 10 //filter (skips the tuple 1,2,5)
       if sum != 10
     } yield {
-        //filter (skips the tuple 1,4,5)
-        s"$tuple sum is $sum, product is $product"
-      }
+      //filter (skips the tuple 1,4,5)
+      s"$tuple sum is $sum, product is $product"
+    }
     val expected =
       """(1,2,3) sum is 6, product is 6
         |(1,2,4) sum is 7, product is 8
@@ -152,20 +152,20 @@ class MapFlatMapForYieldSuite extends FunSuite {
       j <- i + 1 to 5
       k <- j + 1 to 5
     } yield {
-        (i, j, k)
-      }
+      (i, j, k)
+    }
 
     val mapResults1 = (1 to 5).flatMap(i => for {
       j <- i + 1 to 5
       k <- j + 1 to 5
     } yield {
-        (i, j, k)
-      })
+      (i, j, k)
+    })
 
     val mapResults2 = (1 to 5).flatMap(i => (i + 1 to 5).flatMap(j => for (
       k <- j + 1 to 5) yield {
-        (i, j, k)
-      }))
+      (i, j, k)
+    }))
 
     val mapResults3 = (1 to 5).flatMap(i =>
       (i + 1 to 5).flatMap(j =>

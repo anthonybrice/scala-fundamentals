@@ -151,19 +151,19 @@ class MapFlatMapForYield extends FunSuite {
       i <- 1 to 5;
       j <- i + 1 to 5;
       k <- j + 1 to 5) yield {
-        (i, j, k)
-      }
+      (i, j, k)
+    }
 
     val mapResults1 = (1 to 5).flatMap(i => for (
       j <- i + 1 to 5;
       k <- j + 1 to 5) yield {
-        (i, j, k)
-      })
+      (i, j, k)
+    })
 
     val mapResults2 = (1 to 5).flatMap(i => (i + 1 to 5).flatMap(j => for (
       k <- j + 1 to 5) yield {
-        (i, j, k)
-      }))
+      (i, j, k)
+    }))
 
     val mapResults3 = (1 to 5).flatMap(i =>
       (i + 1 to 5).flatMap(j =>

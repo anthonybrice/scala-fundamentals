@@ -34,11 +34,13 @@ class TypesOfLoopsSuite extends FunSuite {
   //the .r method converts a string to a regular expression
 
   //if there are no spaces in front of the name, we treat it as a color
-  val ColorPattern = """(\w+)""".r
+  val ColorPattern =
+    """(\w+)""".r
 
   //if there are spaces in front of the name, we treat it as a name
   //notice that we don't capture the spaces, so our regular expression extractor will only get the name
-  val AliasPattern = """\s+(\w+)""".r
+  val AliasPattern =
+    """\s+(\w+)""".r
 
   test("loop, mutable") {
     //we can import anywhere we can put statements, which is useful if we only want to import something to a limited scope

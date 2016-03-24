@@ -5,7 +5,8 @@ import org.scalatest.FunSuite
 class RegexExtractorSuite extends FunSuite {
   //you convert a string to a regular expression by invoking the .r method
   //triple quoted strings do not evaluate escape sequences, which is convenient when you are defining regular expressions
-  val SimplePhoneNumberPattern = """(\d+)-(\d+)""".r
+  val SimplePhoneNumberPattern =
+    """(\d+)-(\d+)""".r
   val AreaCodeAndPhoneNumberPattern = """\((\d+)\) (\d+)-(\d+)""".r
 
   test("simple phone number") {
