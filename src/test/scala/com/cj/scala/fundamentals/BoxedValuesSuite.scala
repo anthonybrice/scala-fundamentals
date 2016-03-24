@@ -35,7 +35,7 @@ class BoxedValuesSuite extends FunSuite {
   }
 
   //It is important to understand all of the java conversions before choosing one
-  //In particular, you need to know which once return the original object when converting back and forth
+  //In particular, you need to know which ones return the original object when converting back and forth
   //Read the documentation here
   //http://www.scala-lang.org/api/current/#scala.collection.JavaConversions$
   test("java collections") {
