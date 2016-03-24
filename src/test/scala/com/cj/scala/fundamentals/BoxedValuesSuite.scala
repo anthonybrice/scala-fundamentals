@@ -37,13 +37,16 @@ class BoxedValuesSuite extends FunSuite {
   test("java collections") {
     val values: Seq[Long] = Seq(1, 2, 3)
 
+    //use valueOf to box
     val boxed: Seq[BoxedLong] = values.map(BoxedLong.valueOf)
     val collection: util.Collection[BoxedLong] = JavaConversions.asJavaCollection(boxed)
     val reversedCollection: util.Collection[BoxedLong] = javaStyleReverse(collection)
     val reversedBoxed: Seq[BoxedLong] = JavaConversions.iterableAsScalaIterable(reversedCollection).toSeq
+    //use longValue to unbox
     val reversedUsingCollection: Seq[Long] = reversedBoxed.map(_.longValue())
     assert(reversedUsingCollection === Seq(3, 2, 1))
 
+    //same as above, only in one line
     val reversedUsingCollectionOneLine: Seq[Long] =
       JavaConversions.iterableAsScalaIterable(javaStyleReverse(JavaConversions.asJavaCollection(values.map(BoxedLong.valueOf)))).map(_.longValue()).toSeq
     assert(reversedUsingCollectionOneLine === Seq(3, 2, 1))

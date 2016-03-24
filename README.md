@@ -69,6 +69,7 @@ Make sure you understand some fundamentals of Scala
 * [futures](src/test/scala/com/cj/scala/fundamentals/FutureSuite.scala)
 * [either](src/test/scala/com/cj/scala/fundamentals/EitherSuite.scala)
 * [for comprehensions, map, and flatMap](src/test/scala/com/cj/scala/fundamentals/OptionMapFlatMapForYieldSuite.scala)
+* [java interoperation, boxing](src/test/scala/com/cj/scala/fundamentals/BoxedValuesSuite.scala)
 
 Scala List is not Java List
 ===
@@ -133,4 +134,4 @@ When interacting with Java code, understand how to switch between Scala and Java
 * The scala.collection.JavaConversions class provides both two-way and one-way conversions, make sure you understand them
 * Remember that Scala obviates the need for boxing because it treats primitives the same way as any other object.  A consequence of this is that when you are converting to/from Java collections, you will have to code any necessary boxing/unboxing yourself.  You may find import aliasing useful when doing this.
 
-        import java.lang.{Long=>JavaLong}.
+        import java.lang.{Long=>BoxedLong}.
