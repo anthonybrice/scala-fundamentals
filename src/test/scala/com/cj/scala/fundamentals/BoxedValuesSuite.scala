@@ -5,7 +5,7 @@ import java.util
 
 import org.scalatest.FunSuite
 
-import scala.collection.JavaConversions
+import scala.collection.JavaConverters._
 
 class BoxedValuesSuite extends FunSuite {
   def javaStyleReverse(values: Array[Long]): Array[Long] = {
@@ -34,25 +34,25 @@ class BoxedValuesSuite extends FunSuite {
     assert(reversedUsingArray === Seq(3, 2, 1))
   }
 
-  //It is important to understand all of the java conversions before choosing one
+  //It is important to understand all of the java converters before choosing one
   //In particular, you need to know which ones return the original object when converting back and forth
   //Read the documentation here
-  //http://www.scala-lang.org/api/current/#scala.collection.JavaConversions$
+  //http://www.scala-lang.org/api/current/#scala.collection.JavaConverters$
   test("java collections") {
     val values: Seq[Long] = Seq(1, 2, 3)
 
     //use valueOf to box
     val boxed: Seq[BoxedLong] = values.map(BoxedLong.valueOf)
-    val collection: util.Collection[BoxedLong] = JavaConversions.asJavaCollection(boxed)
+    val collection: util.Collection[BoxedLong] = boxed.asJava
     val reversedCollection: util.Collection[BoxedLong] = javaStyleReverse(collection)
-    val reversedBoxed: Seq[BoxedLong] = JavaConversions.iterableAsScalaIterable(reversedCollection).toSeq
+    val reversedBoxed: Seq[BoxedLong] = reversedCollection.asScala.toSeq
     //use longValue to unbox
     val reversedUsingCollection: Seq[Long] = reversedBoxed.map(_.longValue())
     assert(reversedUsingCollection === Seq(3, 2, 1))
 
-    //same as above, only in one line
-    val reversedUsingCollectionOneLine: Seq[Long] =
-      JavaConversions.iterableAsScalaIterable(javaStyleReverse(JavaConversions.asJavaCollection(values.map(BoxedLong.valueOf)))).map(_.longValue()).toSeq
-    assert(reversedUsingCollectionOneLine === Seq(3, 2, 1))
+    //same as above, only in one statement
+    val reversedUsingCollectionOneStatement: Seq[Long] =
+      javaStyleReverse(values.map(BoxedLong.valueOf).asJava).asScala.map(_.longValue()).toSeq
+    assert(reversedUsingCollectionOneStatement === Seq(3, 2, 1))
   }
 }

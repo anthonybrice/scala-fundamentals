@@ -127,11 +127,11 @@ Understand your collection options
     * Map            - key value pairs, can also be thought of as an unordered Seq of tuple2's with unique keys
         * ListMap    - preserves insertion order at the cost of access being linear time rather than constant time
 
-JavaConversions
-===
+JavaConverters
+==============
 When interacting with Java code, understand how to switch between Scala and Java collections
 
-* The scala.collection.JavaConversions class provides both two-way and one-way conversions, make sure you understand them
+* scala.collection.JavaConverters provides both two-way and one-way conversions, make sure you understand them
 * Remember that Scala obviates the need for boxing because it treats primitives the same way as any other object.  A consequence of this is that when you are converting to/from Java collections, you will have to code any necessary boxing/unboxing yourself.  You may find import aliasing useful when doing this.
 
         import java.lang.{Long=>BoxedLong}.
