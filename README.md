@@ -29,14 +29,14 @@ Look at this example with full test coverage to see how wiring works
         * in general, constructors should do nothing but initialize references to their collaborators
 * key features
     * one [entry point](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/server/src/main/scala/com/cj/latestdeployable/server/ServerApplication.scala), which allowed us to find dead code with detangler
-    * full test coverage of logic and integration points
+    * full test coverage of logic and boundaries
     * tests are giving us earliest possible feedback
         * instant, if you are looking at the file, by static typing and fully qualifying types in [wiring](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/server/src/main/scala/com/cj/latestdeployable/server/ServerWiring.scala)
         * compile time, by static typing and fully qualifying types in [wiring](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/server/src/main/scala/com/cj/latestdeployable/server/ServerWiring.scala)
-        * unit test, by design by contract and dependency inversion
-        * integration test, only the minimal needed to ensure the integration point works, no conditional logic
-            * [sample integration test](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/core/src/test/scala/com/cj/latestdeployable/core/GetViaHttpTest.scala)
-            * [fixture for integration test](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/core/src/test/scala/com/cj/latestdeployable/core/HttpServerApp.scala)
+        * [logic test](types-of-tests.svg), by design by contract and dependency inversion
+        * [boundary test](types-of-tests.svg), only the minimal needed to ensure the integration point with the boundary works, no conditional logic
+            * [sample boundary test](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/core/src/test/scala/com/cj/latestdeployable/core/GetViaHttpTest.scala)
+            * [fixture for boundary test](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/core/src/test/scala/com/cj/latestdeployable/core/HttpServerApp.scala)
             * [hello handler](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/core/src/test/scala/com/cj/latestdeployable/core/HelloHandler.scala)
     * some features of the wiring itself
         * statically typed
