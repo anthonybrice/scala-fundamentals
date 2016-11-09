@@ -70,7 +70,7 @@ Make sure you understand some fundamentals of Scala
 * [either](src/test/scala/com/cj/scala/fundamentals/EitherSuite.scala)
 * [for comprehensions, map, and flatMap](src/test/scala/com/cj/scala/fundamentals/OptionMapFlatMapForYieldSuite.scala)
 * [java interoperation, boxing](src/test/scala/com/cj/scala/fundamentals/BoxedValuesSuite.scala)
-* sorting case classes [test](src/test/scala/com/cj/scala/fundamentals/SortCaseClassSuite.scala)[implementation](src/test/scala/com/cj/scala/fundamentals/SortMe.scala)
+* sorting case classes [test](src/test/scala/com/cj/scala/fundamentals/SortCaseClassSuite.scala) [implementation](src/test/scala/com/cj/scala/fundamentals/SortMe.scala)
 
 Scala List is not Java List
 ===
