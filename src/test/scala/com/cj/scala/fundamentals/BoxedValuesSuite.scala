@@ -57,6 +57,12 @@ class BoxedValuesSuite extends FunSuite {
     assert(reversedUsingCollectionOneStatement === Seq(3, 2, 1))
   }
 
+  test("mutable to immutable map") {
+    val mutable = scala.collection.mutable.Map(1 -> 2, 3 -> 4)
+    val immutable: scala.collection.immutable.Map[Int, Int] = mutable.toSeq.toMap
+    assert(immutable === Map(1 -> 2, 3 -> 4))
+  }
+
   test("interop with more complex collections") {
     val toJavaD: (String, Int) => (String, BoxedInt) = (key, value) => (key, Integer.valueOf(value))
     val toJavaC: Map[String, Int] => util.Map[String, BoxedInt] = value => value.map(toJavaD.tupled).asJava
