@@ -2,7 +2,7 @@ package com.cj.scala.fundamentals
 
 import org.scalatest.FunSuite
 
-class SortCaseClassTest extends FunSuite {
+class SortCaseClassSuite extends FunSuite {
   val unsorted = Seq(
     SortMe(2, "b"),
     SortMe(3, "c"),
