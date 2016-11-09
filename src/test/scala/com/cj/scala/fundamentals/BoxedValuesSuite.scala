@@ -1,7 +1,8 @@
 package com.cj.scala.fundamentals
 
-import java.lang.{Long => BoxedLong}
+import java.lang.{Integer => BoxedInt, Long => BoxedLong}
 import java.util
+import java.util.{Map => JavaMap}
 
 import org.scalatest.FunSuite
 
@@ -37,7 +38,7 @@ class BoxedValuesSuite extends FunSuite {
   //It is important to understand all of the java converters before choosing one
   //In particular, you need to know which ones return the original object when converting back and forth
   //Read the documentation here
-  //http://www.scala-lang.org/api/current/#scala.collection.JavaConverters$
+  //http://www.scala-lang.org/api/current/scala/collection/JavaConverters$.html
   test("java collections") {
     val values: Seq[Long] = Seq(1, 2, 3)
 
@@ -52,7 +53,24 @@ class BoxedValuesSuite extends FunSuite {
 
     //same as above, only in one statement
     val reversedUsingCollectionOneStatement: Seq[Long] =
-      javaStyleReverse(values.map(BoxedLong.valueOf).asJava).asScala.map(_.longValue()).toSeq
+    javaStyleReverse(values.map(BoxedLong.valueOf).asJava).asScala.map(_.longValue()).toSeq
     assert(reversedUsingCollectionOneStatement === Seq(3, 2, 1))
+  }
+
+  test("interop with more complex collections") {
+    val toJavaD: (String, Int) => (String, BoxedInt) = (key, value) => (key, Integer.valueOf(value))
+    val toJavaC: Map[String, Int] => util.Map[String, BoxedInt] = value => value.map(toJavaD.tupled).asJava
+    val toJavaB: (Long, Map[String, Int]) => (BoxedLong, util.Map[String, BoxedInt]) = (key, value) => (BoxedLong.valueOf(key), toJavaC(value))
+    val toJavaA: Map[Long, Map[String, Int]] => util.Map[BoxedLong, util.Map[String, BoxedInt]] = value => value.map(toJavaB.tupled).asJava
+
+    val toScalaC: (String, BoxedInt) => (String, Int) = (key, value) => (key, value.intValue())
+    val toScalaB: (BoxedLong, util.Map[String, BoxedInt]) => (Long, Map[String, Int]) = (key, value) => (key.intValue(), value.asScala.toSeq.map(toScalaC.tupled).toMap)
+    val toScalaA: util.Map[BoxedLong, util.Map[String, BoxedInt]] => Map[Long, Map[String, Int]] = value => value.asScala.toSeq.map(toScalaB.tupled).toMap
+
+    val originalInScala: Map[Long, Map[String, Int]] = Map(2L -> Map("a" -> 3))
+    val convertedToJava: util.Map[BoxedLong, util.Map[String, BoxedInt]] = toJavaA(originalInScala)
+    val convertedBackToScala = toScalaA(convertedToJava)
+
+    assert(originalInScala === convertedBackToScala)
   }
 }
