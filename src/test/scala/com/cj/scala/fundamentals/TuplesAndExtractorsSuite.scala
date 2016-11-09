@@ -40,4 +40,13 @@ class TuplesAndExtractorsSuite extends FunSuite {
 
     assert(b === "abc")
   }
+
+  test("get tupled versions of functions") {
+    def foo(x: Int, y: String) = (y, x)
+    val bar: (Int, String) => (String, Int) = (x, y) => (y, x)
+    val fooFunction = foo _
+
+    assert(Map(1 -> "a").map(fooFunction.tupled) === Map("a" -> 1))
+    assert(Map(1 -> "a").map(bar.tupled) === Map("a" -> 1))
+  }
 }

@@ -2,7 +2,6 @@ package com.cj.scala.fundamentals
 
 import java.lang.{Integer => BoxedInt, Long => BoxedLong}
 import java.util
-import java.util.{Map => JavaMap}
 
 import org.scalatest.FunSuite
 
@@ -55,6 +54,15 @@ class BoxedValuesSuite extends FunSuite {
     val reversedUsingCollectionOneStatement: Seq[Long] =
     javaStyleReverse(values.map(BoxedLong.valueOf).asJava).asScala.map(_.longValue()).toSeq
     assert(reversedUsingCollectionOneStatement === Seq(3, 2, 1))
+  }
+
+  test("get tupled versions of functions") {
+    def foo(x: Int, y: String) = (y, x)
+    val bar: (Int, String) => (String, Int) = (x, y) => (y, x)
+    val fooFunction = foo _
+
+    assert(Map(1 -> "a").map(fooFunction.tupled) === Map("a" -> 1))
+    assert(Map(1 -> "a").map(bar.tupled) === Map("a" -> 1))
   }
 
   test("mutable to immutable map") {
