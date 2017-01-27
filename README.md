@@ -136,3 +136,27 @@ When interacting with Java code, understand how to switch between Scala and Java
 * Remember that Scala obviates the need for boxing because it treats primitives the same way as any other object.  A consequence of this is that when you are converting to/from Java collections, you will have to code any necessary boxing/unboxing yourself.  You may find import aliasing useful when doing this.
 
         import java.lang.{Long=>BoxedLong}.
+
+Get detailed information about compiler warnings
+================================================
+
+    <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>scala-maven-plugin</artifactId>
+        <version>3.2.2</version>
+        <executions>
+            <execution>
+                <goals>
+                    <goal>compile</goal>
+                    <goal>testCompile</goal>
+                </goals>
+            </execution>
+        </executions>
+        <configuration>
+            <args>
+                <arg>-unchecked</arg>
+                <arg>-deprecation</arg>
+                <arg>-feature</arg>
+            </args>
+        </configuration>
+    </plugin>
