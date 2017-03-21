@@ -17,7 +17,7 @@ object Shape {
   private val valuesBuffer = new ArrayBuffer[Shape]
 
   //either make values lazy, or move them to the bottom of the object
-  lazy val values = valuesBuffer.toSeq
+  lazy val values: Seq[Shape] = valuesBuffer
 
   val Triangle = new Shape("Triangle") {}
   val Circle = new Shape("Circle") {}
