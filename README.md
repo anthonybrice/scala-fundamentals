@@ -65,7 +65,7 @@ Make sure you understand some fundamentals of Scala
 * [immutable collections](src/test/scala/com/cj/scala/fundamentals/CollectionSuite.scala)
 * [map, flatMap, for/yield](src/test/scala/com/cj/scala/fundamentals/MapFlatMapForYieldSuite.scala)
 * [regular expressions](src/test/scala/com/cj/scala/fundamentals/RegexExtractorSuite.scala)
-* [composing immutable collections](src/test/scala/com/cj/scala/fundamentals/TypesOfLoopsSuite.scala)
+* [types of loops](src/test/scala/com/cj/scala/fundamentals/TypesOfLoopsSuite.scala)
 * [futures](src/test/scala/com/cj/scala/fundamentals/FutureSuite.scala)
 * [either](src/test/scala/com/cj/scala/fundamentals/EitherSuite.scala)
 * [for comprehensions, map, and flatMap](src/test/scala/com/cj/scala/fundamentals/OptionMapFlatMapForYieldSuite.scala)
