@@ -5,47 +5,47 @@ Catch up with our standards
 ===
 [scala standards](http://gitlab.cj.com/cjdev/standards/blob/master/scala-standards.md)
 
-Look at this example with full test coverage to see how wiring works
+Look at this example with full test coverage to see how dependency injection works
 ====================================================================
-* what belongs in wiring
+* what belongs in dependency injection
     * constructor injection
     * new'ing instances of objects
     * constant values
     * function references
     * partial function application
     * explicit typing
-* what should not be allowed in wiring
+* what should not be allowed in dependency injection
     * type inference 
     * conditional logic
     * nulls
-* designing classes for use with wiring
+* designing classes for use with dependency injection
     * one entry point
-        * no logic is allowed above the wiring
-        * the one entry point does nothing but delegate to the wiring
+        * no logic is allowed above the dependency injection
+        * the one entry point does nothing but delegate to the dependency injection
         * this ensures that all of your logic is easy to unit test
     * constructors should not do much
-        * one class should not depend on constructor code from another class in the same wiring
+        * one class should not depend on constructor code from another class in the same dependency injection
         * this creates a temporal coupling that is not obvious
         * in general, constructors should do nothing but initialize references to their collaborators
 * key features
     * one [entry point](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/server/src/main/scala/com/cj/latestdeployable/server/ServerApplication.scala), which allowed us to find dead code with detangler
     * full test coverage of logic and boundaries
     * tests are giving us earliest possible feedback
-        * instant, if you are looking at the file, by static typing and fully qualifying types in [wiring](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/server/src/main/scala/com/cj/latestdeployable/server/ServerWiring.scala)
-        * compile time, by static typing and fully qualifying types in [wiring](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/server/src/main/scala/com/cj/latestdeployable/server/ServerWiring.scala)
+        * instant, if you are looking at the file, by static typing and fully qualifying types in [dependency injection](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/server/src/main/scala/com/cj/latestdeployable/server/ServerDependencyInjection.scala)
+        * compile time, by static typing and fully qualifying types in [dependency injection](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/server/src/main/scala/com/cj/latestdeployable/server/ServerDependencyInjection.scala)
         * [logic test](http://devops102.wl.cj.com:12300/types-of-tests.html), by design by contract and dependency inversion
         * [boundary test](http://devops102.wl.cj.com:12300/types-of-tests.html), only the minimal needed to ensure the integration point with the boundary works, no conditional logic
             * [sample boundary test](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/core/src/test/scala/com/cj/latestdeployable/core/GetViaHttpTest.scala)
             * [fixture for boundary test](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/core/src/test/scala/com/cj/latestdeployable/core/HttpServerApp.scala)
             * [hello handler](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/core/src/test/scala/com/cj/latestdeployable/core/HelloHandler.scala)
-    * some features of the wiring itself
+    * some features of the dependency injection itself
         * statically typed
         * happens at compile time
         * instant feedback from integrated development environment
         * no annotations
         * no proxies clogging up stack trace
         * can set breakpoints
-        * no re-wiring upon each launch of a test
+        * no re-injecting upon each launch of a test
 
 Value Simplicity
 ===
