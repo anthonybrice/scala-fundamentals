@@ -75,7 +75,7 @@ Make sure you understand some fundamentals of Scala
 Enumerated types are not built into the language
 ===
 - If you don't need to iterate over all values, you can use case classes or case objects that extend a sealed trait, as shown in the [StopLight](src/test/scala/com/cj/scala/fundamentals/StopLight.scala) example.  This supports polymorphism.
-- If you need to iterate over all the values and need polymorphism as well, refer to the [DateRange](src/test/scala/com/cj/scala/fundamentals/EnumStyleSuite.scala) example
+- If you need to iterate over all the values and need polymorphism as well, refer to the [DateRange](src/test/scala/com/cj/scala/fundamentals/DateRange.scala) example and its corresponding [test](src/test/scala/com/cj/scala/fundamentals/EnumStyleSuite.scala)
 - There is also a scala.Enumeration type for cases where you need to iterate over all the values but don't need polymorphism    
 
 Scala List is not Java List
