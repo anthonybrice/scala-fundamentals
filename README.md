@@ -72,6 +72,12 @@ Make sure you understand some fundamentals of Scala
 * [java interoperation, boxing](src/test/scala/com/cj/scala/fundamentals/BoxedValuesSuite.scala)
 * sorting case classes: [test](src/test/scala/com/cj/scala/fundamentals/SortCaseClassSuite.scala), [implementation](src/test/scala/com/cj/scala/fundamentals/SortMe.scala)
 
+Enumerated types are not built into the language
+===
+- If you don't need to iterate over all values, you can use case classes or case objects that extend a sealed trait, as shown in the [StopLight](src/test/scala/com/cj/scala/fundamentals/StopLight.scala) example.  This supports polymorphism.
+- If you need to iterate over all the values and need polymorphism as well, refer to the [DateRange](src/test/scala/com/cj/scala/fundamentals/EnumStyleSuite.scala) example
+- There is also a scala.Enumeration type for cases where you need to iterate over all the values but don't need polymorphism    
+
 Scala List is not Java List
 ===
 Remember that the Scala List is a singly linked list.
