@@ -35,9 +35,9 @@ Look at this example with full test coverage to see how dependency injection wor
         * compile time, by static typing and fully qualifying types in [dependency injection](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/server/src/main/scala/com/cj/latestdeployable/server/ServerDependencyInjection.scala)
         * [logic test](http://devops102.wl.cj.com:12300/types-of-tests.html), by design by contract and dependency inversion
         * [boundary test](http://devops102.wl.cj.com:12300/types-of-tests.html), only the minimal needed to ensure the integration point with the boundary works, no conditional logic
-            * [sample boundary test](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/core/src/test/scala/com/cj/latestdeployable/core/GetViaHttpTest.scala)
-            * [fixture for boundary test](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/core/src/test/scala/com/cj/latestdeployable/core/HttpServerApp.scala)
-            * [hello handler](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/core/src/test/scala/com/cj/latestdeployable/core/HelloHandler.scala)
+            * [sample boundary test](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/domain/src/test/scala/com/cj/latestdeployable/domain/GetViaHttpTest.scala)
+            * [fixture for boundary test](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/domain/src/test/scala/com/cj/latestdeployable/domain/HttpServerApp.scala)
+            * [hello handler](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/domain/src/test/scala/com/cj/latestdeployable/domain/HelloHandler.scala)
     * some features of the dependency injection itself
         * statically typed
         * happens at compile time
