@@ -5,7 +5,7 @@ Catch up with our standards
 ===
 [scala standards](http://gitlab.cj.com/cjdev/standards/blob/master/scala-standards.md)
 
-Look at this example with full test coverage to see how dependency injection works
+Look at this [example](http://gitlab.cj.com/cjdev/latest-deployable/) with full test coverage to see how dependency injection works
 ====================================================================
 * what belongs in dependency injection
     * constructor injection
