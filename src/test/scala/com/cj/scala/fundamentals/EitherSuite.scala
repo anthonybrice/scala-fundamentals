@@ -3,6 +3,42 @@ package com.cj.scala.fundamentals
 import org.scalatest.FunSuite
 
 class EitherSuite extends FunSuite {
+  test("left and right projections") {
+    val a: Either[String, Int] = Left("a")
+    val b: Either[String, Int] = Right(2)
+
+    def addToSelf(x: Int): Int = x + x
+
+    def concatToSelf(x: String): String = x + x
+
+    // the method is applied only if the side of the either matches the side of the projection
+    assert(a.right.map(addToSelf) === Left("a"))
+    assert(b.right.map(addToSelf) === Right(4))
+    assert(a.left.map(concatToSelf) === Left("aa"))
+    assert(b.left.map(concatToSelf) === Right(2))
+
+    // works with for loops as well
+    assert((for {c <- a.right} yield c + c) === Left("a"))
+    assert((for {c <- b.right} yield c + c) === Right(4))
+    assert((for {c <- a.left} yield c + c) === Left("aa"))
+    assert((for {c <- b.left} yield c + c) === Right(2))
+  }
+
+  test("eithers are right biased as of Scala 2.12") {
+    val a: Either[String, Int] = Left("a")
+    val b: Either[String, Int] = Right(2)
+
+    def addToSelf(x: Int): Int = x + x
+
+    // either is right biased, so if you don't specify a projection it acts as if you specified a right projection
+    assert(a.map(addToSelf) === Left("a"))
+    assert(b.map(addToSelf) === Right(4))
+
+    // works with for loops as well
+    assert((for {c <- a} yield c + c) === Left("a"))
+    assert((for {c <- b} yield c + c) === Right(4))
+  }
+
   //a common use for Either is validation, putting a valid result on one alternative, an invalid result in the other
   //since "right" in a different context can mean "correct", it was observed that this can be used as a mnemonic
   //this has led to a convention of putting the valid answer on the right, and the invalid answer on the left
@@ -147,10 +183,10 @@ class EitherSuite extends FunSuite {
     //so rather than doing the validation
     //create a function that does the validation with the proper parameters
     def requireAtLeast(atLeast: Int): Int => Either[String, Int] =
-      (input: Int) => {
-        if (input < atLeast) Left(s"must be at least $atLeast, was $input")
-        else Right(input)
-      }
+    (input: Int) => {
+      if (input < atLeast) Left(s"must be at least $atLeast, was $input")
+      else Right(input)
+    }
 
     def requireAtMost(atMost: Int): Int => Either[String, Int] =
       (input: Int) => {
@@ -204,6 +240,7 @@ class EitherSuite extends FunSuite {
           (name, a)
         }
       }
+
       val errorOrName = applyRule("name", toValidName)
       val errorOrShape = applyRule("shape", Shape.eitherFromString)
       val errorOrQuality = applyRule("quality", toValidQuantity)
