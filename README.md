@@ -71,7 +71,7 @@ Make sure you understand some fundamentals of Scala
 * [for comprehensions, map, and flatMap](src/test/scala/com/cj/scala/fundamentals/OptionMapFlatMapForYieldSuite.scala)
 * [java interoperation, boxing](src/test/scala/com/cj/scala/fundamentals/BoxedValuesSuite.scala)
 * sorting case classes: [test](src/test/scala/com/cj/scala/fundamentals/SortCaseClassSuite.scala), [implementation](src/test/scala/com/cj/scala/fundamentals/SortMe.scala)
-* [why to use lazy when injecting dependencies](src/test/scala/com/cj/scala/fundamentals/SortCaseClassSuite.scala), [implementation](src/test/scala/com/cj/scala/fundamentals/WhyToUseLazyWhenInjectingDependencies.scala)
+* [why to use lazy when injecting dependencies](src/test/scala/com/cj/scala/fundamentals/WhyToUseLazyWhenInjectingDependencies.scala)
 
 Enumerated types are not built into the language
 ===
