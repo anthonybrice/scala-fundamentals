@@ -64,6 +64,7 @@ class WhyToUseLazyWhenInjectingDependencies extends FunSuite {
     assert(a.c.b.x === null)
     assert(whenThingsHappened === Seq("b created", "c created", "x evaluated"))
   }
+
   test("when something concrete depends on something abstract, make the concrete thing lazy") {
     val whenThingsHappened = new ArrayBuffer[String]()
     trait A {
@@ -86,6 +87,5 @@ class WhyToUseLazyWhenInjectingDependencies extends FunSuite {
     assert(a.b.x === "blah")
     assert(a.c.b.x === "blah")
     assert(whenThingsHappened === Seq("x evaluated", "b created", "c created"))
-
   }
 }
