@@ -17,8 +17,8 @@ class WhyToUseLazyWhenInjectingDependencies extends FunSuite {
     class B(val x: String) {
       whenThingsHappened.append("b created")
     }
-    val a = new A {}
-    assert(a.b.x === "blah")
+    val c = new A {}
+    assert(c.b.x === "blah")
     assert(whenThingsHappened === Seq("x evaluated", "b created"))
   }
 
@@ -31,13 +31,13 @@ class WhyToUseLazyWhenInjectingDependencies extends FunSuite {
     class B(val x: String) {
       whenThingsHappened.append("b created")
     }
-    val a = new A {
+    val c = new A {
       override val x: String = {
         whenThingsHappened.append("x evaluated")
         "blah"
       }
     }
-    assert(a.b.x === null)
+    assert(c.b.x === null)
     assert(whenThingsHappened === Seq("b created", "x evaluated"))
   }
 
@@ -54,14 +54,14 @@ class WhyToUseLazyWhenInjectingDependencies extends FunSuite {
     class C(val b: B) {
       whenThingsHappened.append("c created")
     }
-    val a = new A {
+    val d = new A {
       override val x: String = {
         whenThingsHappened.append("x evaluated")
         "blah"
       }
     }
-    assert(a.b.x === null)
-    assert(a.c.b.x === null)
+    assert(d.b.x === null)
+    assert(d.c.b.x === null)
     assert(whenThingsHappened === Seq("b created", "c created", "x evaluated"))
   }
 
@@ -78,14 +78,14 @@ class WhyToUseLazyWhenInjectingDependencies extends FunSuite {
     class C(val b: B) {
       whenThingsHappened.append("c created")
     }
-    val a = new A {
+    val d = new A {
       override val x: String = {
         whenThingsHappened.append("x evaluated")
         "blah"
       }
     }
-    assert(a.b.x === "blah")
-    assert(a.c.b.x === "blah")
+    assert(d.b.x === "blah")
+    assert(d.c.b.x === "blah")
     assert(whenThingsHappened === Seq("x evaluated", "b created", "c created"))
   }
 }
