@@ -7,15 +7,15 @@ import scala.collection.mutable.ArrayBuffer
 class WhyToUseLazyWhenInjectingDependencies extends FunSuite {
   test("fine if everything is concrete") {
     val whenThingsHappened = new ArrayBuffer[String]()
+    class Y(val z: String) {
+      whenThingsHappened.append("y created")
+    }
     trait DependencyInjection {
       val z: String = {
         whenThingsHappened.append("z evaluated")
         "blah"
       }
       val y = new Y(z)
-    }
-    class Y(val z: String) {
-      whenThingsHappened.append("y created")
     }
     val application = new DependencyInjection {}
     assert(application.y.z === "blah")
