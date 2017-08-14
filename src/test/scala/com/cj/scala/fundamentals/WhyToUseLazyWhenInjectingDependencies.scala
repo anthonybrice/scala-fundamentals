@@ -7,85 +7,83 @@ import scala.collection.mutable.ArrayBuffer
 class WhyToUseLazyWhenInjectingDependencies extends FunSuite {
   test("fine if everything is concrete") {
     val whenThingsHappened = new ArrayBuffer[String]()
-    trait A {
-      val x: String = {
-        whenThingsHappened.append("x evaluated")
+    trait DependencyInjection {
+      val z: String = {
+        whenThingsHappened.append("z evaluated")
         "blah"
       }
-      val b = new B(x)
+      val y = new Y(z)
     }
-    class B(val x: String) {
-      whenThingsHappened.append("b created")
+    class Y(val z: String) {
+      whenThingsHappened.append("y created")
     }
-    val c = new A {}
-    assert(c.b.x === "blah")
-    assert(whenThingsHappened === Seq("x evaluated", "b created"))
+    val application = new DependencyInjection {}
+    assert(application.y.z === "blah")
+    assert(whenThingsHappened === Seq("z evaluated", "y created"))
   }
 
   test("not good when something concrete depends on something abstract") {
     val whenThingsHappened = new ArrayBuffer[String]()
-    trait A {
-      val x: String
-      val b = new B(x)
+    class Y(val z: String) {
+      whenThingsHappened.append("y created")
     }
-    class B(val x: String) {
-      whenThingsHappened.append("b created")
+    trait DependencyInjection {
+      val z: String
+      val y = new Y(z)
     }
-    val c = new A {
-      override val x: String = {
-        whenThingsHappened.append("x evaluated")
+    val application = new DependencyInjection {
+      override val z: String = {
+        whenThingsHappened.append("z evaluated")
         "blah"
       }
     }
-    assert(c.b.x === null)
-    assert(whenThingsHappened === Seq("b created", "x evaluated"))
+    assert(application.y.z === null)
+    assert(whenThingsHappened === Seq("y created", "z evaluated"))
   }
 
   test("not good when something concrete depends on something abstract, even if indirectly") {
     val whenThingsHappened = new ArrayBuffer[String]()
-    trait A {
-      val x: String
-      lazy val b = new B(x)
-      val c = new C(b)
+    class Y(val z: String) {
+      whenThingsHappened.append("y created")
     }
-    class B(val x: String) {
-      whenThingsHappened.append("b created")
+    class X(val y: Y) {
+      whenThingsHappened.append("x created")
     }
-    class C(val b: B) {
-      whenThingsHappened.append("c created")
+    trait DependencyInjection {
+      val z: String
+      lazy val y = new Y(z)
+      val x = new X(y)
     }
-    val d = new A {
-      override val x: String = {
-        whenThingsHappened.append("x evaluated")
+    val application = new DependencyInjection {
+      override val z: String = {
+        whenThingsHappened.append("z evaluated")
         "blah"
       }
     }
-    assert(d.b.x === null)
-    assert(d.c.b.x === null)
-    assert(whenThingsHappened === Seq("b created", "c created", "x evaluated"))
+    assert(application.x.y.z === null)
+    assert(whenThingsHappened === Seq("y created", "x created", "z evaluated"))
   }
 
   test("when something concrete depends on something abstract, make the concrete thing lazy") {
     val whenThingsHappened = new ArrayBuffer[String]()
-    trait A {
-      val x: String
-      lazy val b = new B(x)
-      lazy val c = new C(b)
+    class Y(val z: String) {
+      whenThingsHappened.append("y created")
     }
-    class B(val x: String) {
-      whenThingsHappened.append("b created")
-    }
-    class C(val b: B) {
+    class X(val y: Y) {
       whenThingsHappened.append("c created")
     }
-    val d = new A {
-      override val x: String = {
-        whenThingsHappened.append("x evaluated")
+    trait DependencyInjection {
+      val z: String
+      lazy val y = new Y(z)
+      lazy val x = new X(y)
+    }
+    val application = new DependencyInjection {
+      override val z: String = {
+        whenThingsHappened.append("z evaluated")
         "blah"
       }
     }
-    assert(d.b.x === "blah")
-    assert(d.c.b.x === "blah")
-    assert(whenThingsHappened === Seq("x evaluated", "b created", "c created"))
+    assert(application.x.y.z === "blah")
+    assert(whenThingsHappened === Seq("z evaluated", "y created", "c created"))
   }
 }
