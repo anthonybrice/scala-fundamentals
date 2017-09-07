@@ -10,9 +10,9 @@ import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.{Await, ExecutionContext, Future, Promise}
 import scala.util.{Failure, Success}
 
-//Don't use Await except for samples or tests (this is a sample)
-//Don't use an infinite duration except in samples
-//The only reason I can think of to use await in production code is to cleanly shut down (don't use infinite duration)
+// Don't use Await except for samples or tests (this is a sample)
+// Don't use an infinite duration except in samples
+// The only reason I can think of to use await in production code is to cleanly shut down (don't use infinite duration)
 class FutureSuite extends FunSuite {
   val maxTestTime = FiniteDuration(100, TimeUnit.MILLISECONDS)
 
