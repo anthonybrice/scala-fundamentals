@@ -97,6 +97,9 @@ class FutureSuite extends FunSuite {
     assert(futureB.value === Some(Success("b result")))
   }
 
+  // how do I test non-determinism?
+  // the answer is always the same
+  // hide the non determinism behind a contract
   trait FutureRunner {
     def runInFuture[T](block: => T): Future[T]
   }
