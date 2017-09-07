@@ -4,9 +4,10 @@ import java.util.concurrent.TimeUnit
 
 import org.scalatest.FunSuite
 
+import scala.collection.mutable.ArrayBuffer
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.FiniteDuration
-import scala.concurrent.{Await, Future}
+import scala.concurrent.{Await, ExecutionContext, Future, Promise}
 import scala.util.{Failure, Success}
 
 //Don't use Await except for samples or tests (this is a sample)
@@ -44,4 +45,68 @@ class FutureSuite extends FunSuite {
 
     assert(resultDescription === "success: 6")
   }
+
+  test("future stubbing ab") {
+    val futureRunner = new FutureRunnerStub
+    val events = new ArrayBuffer[String]()
+    val futureA = futureRunner.runInFuture {
+      events.append("a event")
+      "a result"
+    }
+    val futureB = futureRunner.runInFuture {
+      events.append("b event")
+      "b result"
+    }
+    futureRunner.promiseResolvers(0)()
+    futureRunner.promiseResolvers(1)()
+    assert(events === Seq("a event", "b event"))
+    assert(futureA.value === Some(Success("a result")))
+    assert(futureB.value === Some(Success("b result")))
+  }
+
+  test("future stubbing ba") {
+    val futureRunner = new FutureRunnerStub
+    val events = new ArrayBuffer[String]()
+    val futureA = futureRunner.runInFuture {
+      events.append("a event")
+      "a result"
+    }
+    val futureB = futureRunner.runInFuture {
+      events.append("b event")
+      "b result"
+    }
+    futureRunner.promiseResolvers(1)()
+    futureRunner.promiseResolvers(0)()
+    assert(events === Seq("b event", "a event"))
+    assert(futureA.value === Some(Success("a result")))
+    assert(futureB.value === Some(Success("b result")))
+  }
+
+  trait FutureRunner {
+    def runInFuture[T](block: => T): Future[T]
+  }
+
+  // not used in the test
+  // included to let you know what the production version would look like
+  class FutureRunnerWithExecutionContext(executionContext: ExecutionContext) extends FutureRunner {
+    override def runInFuture[T](block: => T): Future[T] = {
+      Future {
+        block
+      }(executionContext)
+    }
+  }
+
+  class FutureRunnerStub extends FutureRunner {
+    val promiseResolvers = ArrayBuffer[() => Unit]()
+
+    override def runInFuture[T](block: => T): Future[T] = {
+      val promise = Promise[T]
+      val resolvePromise: () => Unit = () => {
+        promise.success(block)
+      }
+      promiseResolvers.append(resolvePromise)
+      promise.future
+    }
+  }
+
 }
