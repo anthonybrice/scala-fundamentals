@@ -109,7 +109,7 @@ class FutureSuite extends FunSuite {
   }
 
   class FutureRunnerStub extends FutureRunner {
-    val promiseResolvers = ArrayBuffer[() => Unit]()
+    val promiseResolvers: ArrayBuffer[() => Unit] = ArrayBuffer()
 
     override def runInFuture[T](block: => T): Future[T] = {
       val promise = Promise[T]
