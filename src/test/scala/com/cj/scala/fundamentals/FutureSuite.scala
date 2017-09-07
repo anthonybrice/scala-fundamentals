@@ -17,26 +17,29 @@ class FutureSuite extends FunSuite {
   val maxTestTime = FiniteDuration(100, TimeUnit.MILLISECONDS)
 
   test("join two concurrent processes") {
-    //start computing right away
+    // start computing right away
     val futureTwo = Future[Int] {
       2
     }
 
-    //start computing right away
+    // start computing right away
     val futureThree = Future[Int] {
       3
     }
 
-    //compose a new future from the others without waiting for any to be complete
+    // compose a new future from the others without waiting for any to be complete
     val futureResult = for {
       two <- futureTwo
       three <- futureThree
     } yield two * three
 
-    //if you are testing, it is ok to wait until we are caught up
+    // if you are testing, it is ok to wait until we are caught up
+    // just make sure the test does not use the max time up unless it actually needs it
+    // for example, don't Thread.sleep(maxTestTime) to give the test a chance to catch up
+    // you would be making the test take longer than necessary
     Await.ready(futureResult, maxTestTime)
 
-    //the future can be in three states: successful completion, failure, still running
+    // the future can be in three states: successful completion, failure, still running
     val resultDescription = futureResult.value match {
       case Some(Success(value)) => "success: " + value
       case Some(Failure(exception)) => "failure: " + exception.getMessage
