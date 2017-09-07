@@ -47,6 +47,7 @@ class FutureSuite extends FunSuite {
   }
 
   test("future stubbing ab") {
+    // given
     val futureRunner = new FutureRunnerStub
     val events = new ArrayBuffer[String]()
     val futureA = futureRunner.runInFuture {
@@ -57,14 +58,20 @@ class FutureSuite extends FunSuite {
       events.append("b event")
       "b result"
     }
+
+    // when
+    // resolve a first, then b
     futureRunner.promiseResolvers(0)()
     futureRunner.promiseResolvers(1)()
+
+    // then
     assert(events === Seq("a event", "b event"))
     assert(futureA.value === Some(Success("a result")))
     assert(futureB.value === Some(Success("b result")))
   }
 
   test("future stubbing ba") {
+    // given
     val futureRunner = new FutureRunnerStub
     val events = new ArrayBuffer[String]()
     val futureA = futureRunner.runInFuture {
@@ -75,8 +82,13 @@ class FutureSuite extends FunSuite {
       events.append("b event")
       "b result"
     }
+
+    // when
+    // resolve b first, then a
     futureRunner.promiseResolvers(1)()
     futureRunner.promiseResolvers(0)()
+
+    // then
     assert(events === Seq("b event", "a event"))
     assert(futureA.value === Some(Success("a result")))
     assert(futureB.value === Some(Success("b result")))
