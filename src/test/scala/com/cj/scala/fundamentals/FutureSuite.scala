@@ -107,14 +107,14 @@ class FutureSuite extends FunSuite {
   // not used in the test
   // included to let you know what the production version would look like
   class FutureRunnerWithExecutionContext(executionContext: ExecutionContext,
-                                         logException: Throwable => Unit) extends FutureRunner {
+                                         notifyRegardingException: Throwable => Unit) extends FutureRunner {
     override def runInFuture[T](block: => T): Future[T] = {
       Future {
         try {
           block
         } catch {
           case ex: Throwable =>
-            logException(ex)
+            notifyRegardingException(ex)
             throw ex
         }
       }(executionContext)
