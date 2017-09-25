@@ -72,6 +72,7 @@ Make sure you understand some fundamentals of Scala
 * [java interoperation, boxing](src/test/scala/com/cj/scala/fundamentals/BoxedValuesSuite.scala)
 * sorting case classes: [test](src/test/scala/com/cj/scala/fundamentals/SortCaseClassSuite.scala), [implementation](src/test/scala/com/cj/scala/fundamentals/SortMe.scala)
 * [why to use lazy when injecting dependencies](src/test/scala/com/cj/scala/fundamentals/WhyToUseLazyWhenInjectingDependencies.scala)
+* [concurrency models](http://gitlab.cj.com/cjdev/onboarding-concurrency-models)
 
 Enumerated types are not built into the language
 ===
