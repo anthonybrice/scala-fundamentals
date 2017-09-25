@@ -90,7 +90,10 @@ Remember that the Scala List is a singly linked list.
 
 Constants don't need all caps
 ===
-Don't all-caps something just because it is a val.  It made sense in Java because in Java something being constant is not the default, but in Scala it is easy to make most of your code immutable.  If you capitalized every "val" in Scala, the majority of your code would be all caps.
+Don't all-caps something just because it is a val.
+It made sense in Java because in Java something being constant is not the default, but in Scala it is easy to make most of your code immutable.
+If you capitalized every "val" in Scala, the majority of your code would be all caps.
+It is okay to capitalize the first letter of a val if the intent is to indicate to the compiler that any pattern matching is to interpret the identifier as a value rather than a binding.  
 
 
 Line breaks can affect meaning
