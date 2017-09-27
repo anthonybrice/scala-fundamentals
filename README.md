@@ -1,9 +1,8 @@
 Getting started with Scala
 ===
-
-Catch up with our standards
-===
-[scala standards](http://gitlab.cj.com/cjdev/standards/blob/master/scala-standards.md)
+* [Tour of Scala](http://docs.scala-lang.org/tour/tour-of-scala.html)
+* [More online resources](http://docs.scala-lang.org/learn.html)
+* [CJ Scala Standards](http://gitlab.cj.com/cjdev/standards/blob/master/scala-standards.md)
 
 Look at this [example](http://gitlab.cj.com/cjdev/latest-deployable/) with full test coverage to see how dependency injection works
 ====================================================================
