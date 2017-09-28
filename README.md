@@ -5,7 +5,8 @@ Getting started with Scala
 * [Scala with Maven](http://docs.scala-lang.org/tutorials/scala-with-maven.html)
     
     When creating a new project via `mvn archetype:generate`, update `pom.xml` as follows
-    * Remove all dependencies under Test except `scalatest`
+    * Remove all dependencies under Test except `scalatest` 
+        * [Update](http://www.scalatest.org/install) `scalatest` dependency
     * Modify `scala-maven-plugin` to [send arguments to the scalac compiler during compilation](http://davidb.github.io/scala-maven-plugin/example_compile.html)
       * ```<args>
                 <arg>-unchecked</arg>
