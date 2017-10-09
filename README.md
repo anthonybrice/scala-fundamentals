@@ -3,16 +3,7 @@ Getting started with Scala
 * [Tour of Scala](http://docs.scala-lang.org/tour/tour-of-scala.html)
 * [Scala Exercises Tutorial](https://www.scala-exercises.org/scala_tutorial/terms_and_types)
 * [Scala with Maven](http://docs.scala-lang.org/tutorials/scala-with-maven.html)
-    
-    When creating a new project via `mvn archetype:generate`, update `pom.xml` as follows
-    * Remove all dependencies under Test except `scalatest` 
-        * [Update](http://www.scalatest.org/install) `scalatest` dependency
-    * Modify `scala-maven-plugin` to [send arguments to the scalac compiler during compilation](http://davidb.github.io/scala-maven-plugin/example_compile.html)
-      * ```<args>
-                <arg>-unchecked</arg>
-                <arg>-deprecation</arg>
-                <arg>-explaintypes</arg>
-      </args>```
+    * Note: Creating a new project via `mvn archetype:generate` renders an outdated `pom.xml` that will need updating
     
 * [CJ Scala Standards](http://gitlab.cj.com/cjdev/standards/blob/master/scala-standards.md)
 
