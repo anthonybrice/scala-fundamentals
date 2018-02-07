@@ -49,6 +49,36 @@ class FutureSuite extends FunSuite {
     assert(resultDescription === "success: 6")
   }
 
+  test("ILLUSTRATION ONLY, DON'T DO THIS - join to concurrent processes in serial") {
+    // start computing right away
+    val futureTwo = Future[Int] {
+      2
+    }
+
+    // start computing right away
+    val futureThree = Future[Int] {
+      3
+    }
+
+    val two = Await.result(futureTwo, maxTestTime)
+    val three = Await.result(futureThree, maxTestTime)
+
+    val futureResult = Future[Int] {
+      two * three
+    }
+
+    Await.ready(futureResult, maxTestTime)
+
+    // the future can be in three states: successful completion, failure, still running
+    val resultDescription = futureResult.value match {
+      case Some(Success(value)) => "success: " + value
+      case Some(Failure(exception)) => "failure: " + exception.getMessage
+      case None => "don't have an answer yet"
+    }
+
+    assert(resultDescription === "success: 6")
+  }
+
   test("future stubbing ab") {
     // given
     val futureRunner = new FutureRunnerStub
