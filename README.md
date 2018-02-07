@@ -1,9 +1,11 @@
 Getting started with Scala
 ===
-
-Catch up with our standards
-===
-[scala standards](http://gitlab.cj.com/cjdev/standards/blob/master/scala-standards.md)
+* [Tour of Scala](http://docs.scala-lang.org/tour/tour-of-scala.html)
+* [Scala Exercises Tutorial](https://www.scala-exercises.org/scala_tutorial/terms_and_types)
+* [Scala with Maven](http://docs.scala-lang.org/tutorials/scala-with-maven.html)
+    * Note: Creating a new project via `mvn archetype:generate` renders an outdated `pom.xml` that will need updating
+    
+* [CJ Scala Standards](http://gitlab.cj.com/cjdev/standards/blob/master/scala-standards.md)
 
 Look at this [example](http://gitlab.cj.com/cjdev/latest-deployable/) with full test coverage to see how dependency injection works
 ====================================================================
