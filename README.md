@@ -68,7 +68,10 @@ Make sure you understand some fundamentals of Scala
 * [map, flatMap, for/yield](src/test/scala/com/cj/scala/fundamentals/MapFlatMapForYieldSuite.scala)
 * [regular expressions](src/test/scala/com/cj/scala/fundamentals/RegexExtractorSuite.scala)
 * [types of loops](src/test/scala/com/cj/scala/fundamentals/TypesOfLoopsSuite.scala)
+
+Some more advanced stuff
 * [futures](src/test/scala/com/cj/scala/fundamentals/FutureSuite.scala)
+* [function composition](src/test/scala/com/cj/scala/fundamentals/FunctionCompositionSuite.scala)
 * [either](src/test/scala/com/cj/scala/fundamentals/EitherSuite.scala)
 * [for comprehensions, map, and flatMap](src/test/scala/com/cj/scala/fundamentals/OptionMapFlatMapForYieldSuite.scala)
 * [java interoperation, boxing](src/test/scala/com/cj/scala/fundamentals/BoxedValuesSuite.scala)
