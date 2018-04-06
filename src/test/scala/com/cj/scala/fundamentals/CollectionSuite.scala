@@ -36,6 +36,7 @@ class CollectionSuite extends FunSuite {
 
     //apply a filter to a sequence
     def notTwo(x: Int): Boolean = x != 2
+
     val filterUsingFilter = seqA.filter(notTwo)
     val filterUsingFor = for (item <- seqA; if notTwo(item)) yield item
     val expectedFilterResult = Seq(1, 3)
@@ -62,6 +63,7 @@ class CollectionSuite extends FunSuite {
 
     //apply a function to each element of a set
     def squared(x: Int): Int = x * x
+
     val usingMap = setB.map(squared)
     val usingFor = for (item <- setB) yield squared(item)
     val expected = Set(0, 1, 4)
@@ -91,20 +93,22 @@ class CollectionSuite extends FunSuite {
 
     //replacing an entry
     val mapE = mapA + (2 -> "e")
-    val expectedMapE = Map(1 -> "a", 2 -> "e", 3 -> "c")
-    assert(mapE === expectedMapE)
+    val mapF = mapA.updated(2, "e")
+    val expectedMapEF = Map(1 -> "a", 2 -> "e", 3 -> "c")
+    assert(mapE === expectedMapEF)
+    assert(mapF === expectedMapEF)
 
     //when combining maps, values added later override existing values
-    val mapF = Map(1 -> "a", 2 -> "b", 3 -> "c")
-    val mapG = Map(3 -> "d", 4 -> "e", 5 -> "f")
-    val mapH = mapF ++ mapG
-    val expectedMapH = Map(1 -> "a", 2 -> "b", 3 -> "d", 4 -> "e", 5 -> "f")
-    assert(mapH === expectedMapH)
+    val mapG = Map(1 -> "a", 2 -> "b", 3 -> "c")
+    val mapH = Map(3 -> "d", 4 -> "e", 5 -> "f")
+    val mapI = mapG ++ mapH
+    val expectedMapI = Map(1 -> "a", 2 -> "b", 3 -> "d", 4 -> "e", 5 -> "f")
+    assert(mapI === expectedMapI)
 
     //you can assign default values to maps
-    val mapI = mapA.withDefaultValue("abc")
-    assert("b" === mapI(2))
-    assert("abc" === mapI(4))
+    val mapJ = mapA.withDefaultValue("abc")
+    assert("b" === mapJ(2))
+    assert("abc" === mapJ(4))
 
     //you can assign default values when you lookup a map value by its key
     assert("b" === mapA.getOrElse(2, "abc"))
@@ -125,6 +129,7 @@ class CollectionSuite extends FunSuite {
       val (key, value) = entry
       "" + key + "-" + value
     }
+
     val seqE = mapA.map(composeEntry)
     assert(seqE === Seq("1-a", "2-b", "3-c"))
   }
