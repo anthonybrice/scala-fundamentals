@@ -1,11 +1,28 @@
-Getting started with Scala
-===
-* [Tour of Scala](http://docs.scala-lang.org/tour/tour-of-scala.html)
-* [Scala Exercises Tutorial](https://www.scala-exercises.org/scala_tutorial/terms_and_types)
-* [Scala with Maven](http://docs.scala-lang.org/tutorials/scala-with-maven.html)
-    * Note: Creating a new project via `mvn archetype:generate` renders an outdated `pom.xml` that will need updating
-    
-* [CJ Scala Standards](http://gitlab.cj.com/cjdev/standards/blob/master/scala-standards.md)
+# Getting started with Scala
+
+## Understand the Fundamentals
+
+### Make sure you understand some fundamentals of Scala
+
+* [tuples and extractors](src/test/scala/com/cj/scala/fundamentals/TuplesAndExtractorsSuite.scala)
+* [options](src/test/scala/com/cj/scala/fundamentals/OptionSuite.scala)
+* [case classes](src/test/scala/com/cj/scala/fundamentals/CaseClassSuite.scala)
+* [immutable collections](src/test/scala/com/cj/scala/fundamentals/CollectionSuite.scala)
+* [map, flatMap, for/yield](src/test/scala/com/cj/scala/fundamentals/MapFlatMapForYieldSuite.scala)
+* [regular expressions](src/test/scala/com/cj/scala/fundamentals/RegexExtractorSuite.scala)
+* [types of loops](src/test/scala/com/cj/scala/fundamentals/TypesOfLoopsSuite.scala)
+
+### Some more advanced stuff
+* [futures](src/test/scala/com/cj/scala/fundamentals/FutureSuite.scala)
+* [function composition](src/test/scala/com/cj/scala/fundamentals/FunctionCompositionSuite.scala)
+* [either](src/test/scala/com/cj/scala/fundamentals/EitherSuite.scala)
+* [for comprehensions, map, and flatMap](src/test/scala/com/cj/scala/fundamentals/OptionMapFlatMapForYieldSuite.scala)
+* [java interoperation, boxing](src/test/scala/com/cj/scala/fundamentals/BoxedValuesSuite.scala)
+* sorting case classes: [test](src/test/scala/com/cj/scala/fundamentals/SortCaseClassSuite.scala), [implementation](src/test/scala/com/cj/scala/fundamentals/SortMe.scala)
+* [why to use lazy when injecting dependencies](src/test/scala/com/cj/scala/fundamentals/WhyToUseLazyWhenInjectingDependencies.scala)
+* [concurrency models](http://gitlab.cj.com/cjdev/onboarding-concurrency-models)
+
+[CJ Scala Standards](http://gitlab.cj.com/cjdev/standards/blob/master/scala-standards.md)
 
 Look at this [example](http://gitlab.cj.com/cjdev/latest-deployable/) with full test coverage to see how dependency injection works
 ====================================================================
@@ -56,28 +73,6 @@ Value Simplicity
 * Clearly Express Intent
 * No Duplicate Code
 * Concise As Possible
-
-Understand the Fundamentals
-===
-Make sure you understand some fundamentals of Scala
-
-* [tuples and extractors](src/test/scala/com/cj/scala/fundamentals/TuplesAndExtractorsSuite.scala)
-* [options](src/test/scala/com/cj/scala/fundamentals/OptionSuite.scala)
-* [case classes](src/test/scala/com/cj/scala/fundamentals/CaseClassSuite.scala)
-* [immutable collections](src/test/scala/com/cj/scala/fundamentals/CollectionSuite.scala)
-* [map, flatMap, for/yield](src/test/scala/com/cj/scala/fundamentals/MapFlatMapForYieldSuite.scala)
-* [regular expressions](src/test/scala/com/cj/scala/fundamentals/RegexExtractorSuite.scala)
-* [types of loops](src/test/scala/com/cj/scala/fundamentals/TypesOfLoopsSuite.scala)
-
-Some more advanced stuff
-* [futures](src/test/scala/com/cj/scala/fundamentals/FutureSuite.scala)
-* [function composition](src/test/scala/com/cj/scala/fundamentals/FunctionCompositionSuite.scala)
-* [either](src/test/scala/com/cj/scala/fundamentals/EitherSuite.scala)
-* [for comprehensions, map, and flatMap](src/test/scala/com/cj/scala/fundamentals/OptionMapFlatMapForYieldSuite.scala)
-* [java interoperation, boxing](src/test/scala/com/cj/scala/fundamentals/BoxedValuesSuite.scala)
-* sorting case classes: [test](src/test/scala/com/cj/scala/fundamentals/SortCaseClassSuite.scala), [implementation](src/test/scala/com/cj/scala/fundamentals/SortMe.scala)
-* [why to use lazy when injecting dependencies](src/test/scala/com/cj/scala/fundamentals/WhyToUseLazyWhenInjectingDependencies.scala)
-* [concurrency models](http://gitlab.cj.com/cjdev/onboarding-concurrency-models)
 
 Enumerated types are not built into the language
 ===
@@ -176,3 +171,10 @@ Get detailed information about compiler warnings
             </args>
         </configuration>
     </plugin>
+
+### Additional Resources
+* [Tour of Scala](http://docs.scala-lang.org/tour/tour-of-scala.html)
+* [Scala Exercises Tutorial](https://www.scala-exercises.org/scala_tutorial/terms_and_types)
+* [Scala with Maven](http://docs.scala-lang.org/tutorials/scala-with-maven.html)
+    * Note: Creating a new project via `mvn archetype:generate` renders an outdated `pom.xml` that will need updating
+    
