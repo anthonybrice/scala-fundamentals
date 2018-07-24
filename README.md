@@ -53,8 +53,8 @@ Look at this [example](http://gitlab.cj.com/cjdev/latest-deployable/) with full 
     * tests are giving us earliest possible feedback
         * instant, if you are looking at the file, by static typing and fully qualifying types in [dependency injection](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/server/src/main/scala/com/cj/latestdeployable/server/ServerDependencyInjection.scala)
         * compile time, by static typing and fully qualifying types in [dependency injection](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/server/src/main/scala/com/cj/latestdeployable/server/ServerDependencyInjection.scala)
-        * [logic test](http://devops102.wl.cj.com:12300/types-of-tests.html), by design by contract and dependency inversion
-        * [boundary test](http://devops102.wl.cj.com:12300/types-of-tests.html), only the minimal needed to ensure the integration point with the boundary works, no conditional logic
+        * [logic test](http://shell1.vclk.net/~sshubin/types-of-tests.svg), by design by contract and dependency inversion
+        * [boundary test](http://shell1.vclk.net/~sshubin/types-of-tests.svg), only the minimal needed to ensure the integration point with the boundary works, no conditional logic
             * [sample boundary test](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/domain/src/test/scala/com/cj/latestdeployable/domain/GetViaHttpTest.scala)
             * [fixture for boundary test](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/domain/src/test/scala/com/cj/latestdeployable/domain/HttpServerApp.scala)
             * [hello handler](http://gitlab.cj.com/cjdev/latest-deployable/blob/master/domain/src/test/scala/com/cj/latestdeployable/domain/HelloHandler.scala)
