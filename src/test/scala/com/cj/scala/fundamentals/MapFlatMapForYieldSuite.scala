@@ -49,7 +49,7 @@ class MapFlatMapForYieldSuite extends FunSuite {
     assert(someNumbersTimesTwo_C === Seq(8, 2, 16, 10, 18, 6, 14, 4, 12))
   }
 
-  test("for with index 1") {
+  test("for with index type 1") {
     val cats = Seq("Chinese Mountain", "Domestic", "Jungle", "Pallas", "Sand", "Black Footed", "Wild")
 
     val actual = for (index <- cats.indices) yield {
@@ -68,7 +68,7 @@ class MapFlatMapForYieldSuite extends FunSuite {
     verifyLines(actual, expected)
   }
 
-  test("for with index 2") {
+  test("for with index type 2") {
     val cats = Seq("Chinese Mountain", "Domestic", "Jungle", "Pallas", "Sand", "Black Footed", "Wild")
     val indexedCats = cats.indices zip cats
     val actual = for ((index, cat) <- indexedCats) yield {
@@ -86,7 +86,7 @@ class MapFlatMapForYieldSuite extends FunSuite {
     verifyLines(actual, expected)
   }
 
-  test("for with index 3") {
+  test("for with index type 3") {
     val cats = Seq("Chinese Mountain", "Domestic", "Jungle", "Pallas", "Sand", "Black Footed", "Wild")
     val indexedCats = cats.zipWithIndex
     val actual = for ((cat, index) <- indexedCats) yield {
@@ -104,7 +104,7 @@ class MapFlatMapForYieldSuite extends FunSuite {
     verifyLines(actual, expected)
   }
 
-  test("for yield 1") {
+  test("for yield type 1") {
     val actual = for {
       i <- 1 to 5 //generator
       j <- i + 1 to 5 //generator
@@ -113,9 +113,8 @@ class MapFlatMapForYieldSuite extends FunSuite {
       sum = i + j + k //definition
       product = i * j * k //definition
       if product != 10 //filter (skips the tuple 1,2,5)
-      if sum != 10
+      if sum != 10 //filter (skips the tuple 1,4,5)
     } yield {
-      //filter (skips the tuple 1,4,5)
       s"$tuple sum is $sum, product is $product"
     }
     val expected =
@@ -130,7 +129,7 @@ class MapFlatMapForYieldSuite extends FunSuite {
     verifyLines(actual, expected)
   }
 
-  test("for yield 2") {
+  test("for yield type 2") {
     val forResults = for (i <- 1 to 5) yield i * i
     val mapResults = (1 to 5).map(i => i * i)
 
@@ -138,7 +137,7 @@ class MapFlatMapForYieldSuite extends FunSuite {
     assert(mapResults === Seq(1, 4, 9, 16, 25))
   }
 
-  test("for yield 3") {
+  test("for yield type 3") {
     val forResults = for (i <- 1 to 10; if i % 2 == 1) yield i * i
     val mapResults = (1 to 10).withFilter(i => i % 2 == 1).map(i => i * i)
 
@@ -146,7 +145,7 @@ class MapFlatMapForYieldSuite extends FunSuite {
     assert(mapResults === Seq(1, 9, 25, 49, 81))
   }
 
-  test("for yield 4") {
+  test("for yield type 4") {
     val forResults1 = for {
       i <- 1 to 5
       j <- i + 1 to 5
