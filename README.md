@@ -23,7 +23,7 @@
 * [concurrency models](http://gitlab.cj.com/cjdev/onboarding-concurrency-models)
 
 ### CJ Scala Standards
-* [CJ Scala Standards](http://gitlab.cj.com/cjdev/standards/blob/master/scala-standards.md)
+* [CJ Scala Standards](http://gitlab.cj.com/cjdev/old-standards-see-engineering-commitments/blob/master/scala-standards.md)
 
 Look at this [example](http://gitlab.cj.com/cjdev/latest-deployable/) with full test coverage to see how dependency injection works
 ====================================================================
