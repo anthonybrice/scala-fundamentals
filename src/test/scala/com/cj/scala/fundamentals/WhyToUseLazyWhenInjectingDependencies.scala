@@ -5,85 +5,90 @@ import org.scalatest.FunSuite
 import scala.collection.mutable.ArrayBuffer
 
 class WhyToUseLazyWhenInjectingDependencies extends FunSuite {
+
+  val expectedInnerContent = "content"
+
   test("fine if everything is concrete") {
     val whenThingsHappened = new ArrayBuffer[String]()
-    class Y(val z: String) {
-      whenThingsHappened.append("y created")
+    class Outer(val inner: String) {
+      whenThingsHappened.append("outer created")
     }
     trait DependencyInjection {
-      val z: String = {
-        whenThingsHappened.append("z evaluated")
-        "blah"
+      val inner: String = {
+        whenThingsHappened.append("inner evaluated")
+        expectedInnerContent
       }
-      val y = new Y(z)
+      val outer = new Outer(inner)
     }
     val application = new DependencyInjection {}
-    assert(application.y.z === "blah")
-    assert(whenThingsHappened === Seq("z evaluated", "y created"))
+    assert(application.outer.inner === expectedInnerContent)
+    assert(whenThingsHappened === Seq("inner evaluated", "outer created"))
   }
 
   test("not good when something concrete depends on something abstract") {
     val whenThingsHappened = new ArrayBuffer[String]()
-    class Y(val z: String) {
-      whenThingsHappened.append("y created")
+    class Outer(val inner: String) {
+      whenThingsHappened.append("outer created")
     }
     trait DependencyInjection {
-      val z: String
-      val y = new Y(z)
+      val inner: String
+      val outer = new Outer(inner)
     }
     val application = new DependencyInjection {
-      override val z: String = {
-        whenThingsHappened.append("z evaluated")
-        "blah"
+      override val inner: String = {
+        whenThingsHappened.append("inner evaluated")
+        expectedInnerContent
       }
     }
-    assert(application.y.z === null)
-    assert(whenThingsHappened === Seq("y created", "z evaluated"))
+    // not initialized correctly
+    assert(application.outer.inner !== expectedInnerContent)
+    assert(whenThingsHappened === Seq("outer created", "inner evaluated"))
   }
 
   test("not good when something concrete depends on something abstract, even if indirectly") {
     val whenThingsHappened = new ArrayBuffer[String]()
-    class Y(val z: String) {
-      whenThingsHappened.append("y created")
+    class Outer(val inner: String) {
+      whenThingsHappened.append("outer created")
     }
-    class X(val y: Y) {
-      whenThingsHappened.append("x created")
+    class BigOuter(val outer: Outer) {
+      whenThingsHappened.append("big outer created")
     }
     trait DependencyInjection {
-      val z: String
-      lazy val y = new Y(z)
-      val x = new X(y)
+      val inner: String
+      lazy val outer = new Outer(inner)
+      val bigOuter = new BigOuter(outer)
     }
     val application = new DependencyInjection {
-      override val z: String = {
-        whenThingsHappened.append("z evaluated")
-        "blah"
+      override val inner: String = {
+        whenThingsHappened.append("inner evaluated")
+        expectedInnerContent
       }
     }
-    assert(application.x.y.z === null)
-    assert(whenThingsHappened === Seq("y created", "x created", "z evaluated"))
+    // not initialized correctly
+    assert(application.bigOuter.outer.inner !== expectedInnerContent)
+    assert(whenThingsHappened === Seq("outer created", "big outer created", "inner evaluated"))
   }
 
   test("when something concrete depends on something abstract, make the concrete thing lazy") {
     val whenThingsHappened = new ArrayBuffer[String]()
-    class Y(val z: String) {
-      whenThingsHappened.append("y created")
+    class Outer(val inner: String) {
+      whenThingsHappened.append("outer created")
     }
-    class X(val y: Y) {
-      whenThingsHappened.append("c created")
+    class BigOuter(val outer: Outer) {
+      whenThingsHappened.append("big outer created")
     }
     trait DependencyInjection {
-      val z: String
-      lazy val y = new Y(z)
-      lazy val x = new X(y)
+      val inner: String
+      lazy val outer = new Outer(inner)
+      lazy val bigOuter = new BigOuter(outer)
     }
     val application = new DependencyInjection {
-      override val z: String = {
-        whenThingsHappened.append("z evaluated")
-        "blah"
+      override val inner: String = {
+        whenThingsHappened.append("inner evaluated")
+        expectedInnerContent
       }
     }
-    assert(application.x.y.z === "blah")
-    assert(whenThingsHappened === Seq("z evaluated", "y created", "c created"))
+    assert(application.bigOuter.outer.inner === expectedInnerContent)
+    assert(whenThingsHappened === Seq("inner evaluated", "outer created", "big outer created"))
   }
 }
