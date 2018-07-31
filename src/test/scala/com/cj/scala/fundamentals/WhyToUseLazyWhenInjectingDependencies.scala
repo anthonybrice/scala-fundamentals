@@ -47,16 +47,16 @@ class WhyToUseLazyWhenInjectingDependencies extends FunSuite {
 
   test("not good when something concrete depends on something abstract, even if indirectly") {
     val whenThingsHappened = new ArrayBuffer[String]()
-    class Outer(val inner: String) {
-      whenThingsHappened.append("outer created")
+    class Middle(val inner: String) {
+      whenThingsHappened.append("middle created")
     }
-    class BigOuter(val outer: Outer) {
-      whenThingsHappened.append("big outer created")
+    class Outer(val middle: Middle) {
+      whenThingsHappened.append("outer created")
     }
     trait DependencyInjection {
       val inner: String
-      lazy val outer = new Outer(inner)
-      val bigOuter = new BigOuter(outer)
+      lazy val middle = new Middle(inner)
+      val outer = new Outer(middle)
     }
     val application = new DependencyInjection {
       override val inner: String = {
@@ -65,22 +65,22 @@ class WhyToUseLazyWhenInjectingDependencies extends FunSuite {
       }
     }
     // not initialized correctly
-    assert(application.bigOuter.outer.inner !== expectedInnerContent)
-    assert(whenThingsHappened === Seq("outer created", "big outer created", "inner evaluated"))
+    assert(application.outer.middle.inner !== expectedInnerContent)
+    assert(whenThingsHappened === Seq("middle created", "outer created", "inner evaluated"))
   }
 
   test("when something concrete depends on something abstract, make the concrete thing lazy") {
     val whenThingsHappened = new ArrayBuffer[String]()
-    class Outer(val inner: String) {
-      whenThingsHappened.append("outer created")
+    class Middle(val inner: String) {
+      whenThingsHappened.append("middle created")
     }
-    class BigOuter(val outer: Outer) {
-      whenThingsHappened.append("big outer created")
+    class Outer(val middle: Middle) {
+      whenThingsHappened.append("outer created")
     }
     trait DependencyInjection {
       val inner: String
-      lazy val outer = new Outer(inner)
-      lazy val bigOuter = new BigOuter(outer)
+      lazy val middle = new Middle(inner)
+      lazy val outer = new Outer(middle)
     }
     val application = new DependencyInjection {
       override val inner: String = {
@@ -88,7 +88,7 @@ class WhyToUseLazyWhenInjectingDependencies extends FunSuite {
         expectedInnerContent
       }
     }
-    assert(application.bigOuter.outer.inner === expectedInnerContent)
-    assert(whenThingsHappened === Seq("inner evaluated", "outer created", "big outer created"))
+    assert(application.outer.middle.inner === expectedInnerContent)
+    assert(whenThingsHappened === Seq("inner evaluated", "middle created", "outer created"))
   }
 }
