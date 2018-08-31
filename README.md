@@ -5,8 +5,8 @@
 ### Make sure you understand some fundamentals of Scala
 
 * [tuples and extractors](src/test/scala/com/cj/scala/fundamentals/TuplesAndExtractorsSuite.scala)
-* [options](src/test/scala/com/cj/scala/fundamentals/OptionSuite.scala)
 * [case classes](src/test/scala/com/cj/scala/fundamentals/CaseClassSuite.scala)
+* [options](src/test/scala/com/cj/scala/fundamentals/OptionSuite.scala)
 * [immutable collections](src/test/scala/com/cj/scala/fundamentals/CollectionSuite.scala)
 * [map, flatMap, for/yield](src/test/scala/com/cj/scala/fundamentals/MapFlatMapForYieldSuite.scala)
 * [regular expressions](src/test/scala/com/cj/scala/fundamentals/RegexExtractorSuite.scala)
