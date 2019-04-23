@@ -12,6 +12,18 @@
 - [regular expressions](src/test/scala/com/cj/scala/fundamentals/RegexExtractorSuite.scala)
 - [types of loops](src/test/scala/com/cj/scala/fundamentals/TypesOfLoopsSuite.scala)
 
+### Monads
+Scala supports the "Monad" design pattern.
+The concept can be very difficult to understand the first time you are exposed to it,
+so initially it is sufficient to think of a monad as anything with a .flatMap method
+and Scala's "for loop" as a monad runner,
+where "<-" pulls the monadic value out of the monad.
+
+Here are some resources to explore Monads in more detail if you are interested.    
+- [Learning about Monads](https://byorgey.wordpress.com/2009/01/12/abstraction-intuition-and-the-monad-tutorial-fallacy/)
+- [Visual exclamation in Haskell](http://adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html)
+- [Example based exclamation in Kotlin](https://arrow-kt.io/docs/patterns/monads/)
+
 ### Some more advanced stuff
 - [futures](src/test/scala/com/cj/scala/fundamentals/FutureSuite.scala)
 - [function composition](src/test/scala/com/cj/scala/fundamentals/FunctionCompositionSuite.scala)
